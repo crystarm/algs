@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/qx-d
+
 #include <iostream>
 #include <fstream>
 #include <string>
