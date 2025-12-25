@@ -1,6 +1,6 @@
-// https://coderun.yandex.ru/problem/calculator
-
 <?php
+
+// https://coderun.yandex.ru/problem/calculator
 
 $n = 0;
 fscanf(STDIN, "%d", $n);
