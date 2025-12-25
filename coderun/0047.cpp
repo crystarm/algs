@@ -1,248 +1,113 @@
-#include <iostream>
+// https://coderun.yandex.ru/problem/stalker
 
-using namespace std;
+#include <cstdio>
+#include <cstring>
 
-template <typename T1, typename T2>
-struct Pair {
-    T1 first;
-    T2 second;
+const int N = 100005;
+const int M = 2000005;
 
-    Pair() {}
-    Pair(T1 f, T2 s) : first(f), second(s) {}
-};
+int ri() {
+    int x = 0, c = getchar();
+    while (c < 48 || c > 57) { if (c == EOF) return 0; c = getchar(); }
+    while (c >= 48 && c <= 57) x = x * 10 + c - 48, c = getchar();
+    return x;
+}
 
-template <typename T>
-class MyVector {
-private:
-    T* data;
-    size_t _size;
-    size_t _capacity;
+int h1[N], n1[M], t1[M], e1;
+int h2[M], n2[M], v2[M], e2;
+int h3[N], n3[M], v3[M], e3;
 
-    void reallocate(size_t new_cap) {
-        T* new_data = new T[new_cap];
-        for (size_t i = 0; i < _size; ++i) {
-            new_data[i] = data[i];
-        }
-        if (data) delete[] data;
-        data = new_data;
-        _capacity = new_cap;
-    }
+int buf[M], bc;
+int vis[N], vid;
 
-public:
-    MyVector() : data(nullptr), _size(0), _capacity(0) {}
+int q[M], d[N];
+bool used[M];
 
-    MyVector(size_t n, const T& val = T()) : data(nullptr), _size(0), _capacity(0) {
-        resize(n, val);
-    }
+void add1(int u, int v) {
+    t1[e1] = v; n1[e1] = h1[u]; h1[u] = e1++;
+}
 
-    ~MyVector() {
-        if (data) delete[] data;
-    }
+void add2(int c, int u) {
+    v2[e2] = u; n2[e2] = h2[c]; h2[c] = e2++;
+}
 
-    MyVector(const MyVector& other) : data(nullptr), _size(0), _capacity(0) {
-        if (other._size > 0) {
-            reallocate(other._capacity);
-            _size = other._size;
-            for (size_t i = 0; i < _size; ++i) {
-                data[i] = other.data[i];
-            }
-        }
-    }
-
-    MyVector& operator=(const MyVector& other) {
-        if (this == &other) return *this;
-        if (data) delete[] data;
-        data = nullptr;
-        _size = 0;
-        _capacity = 0;
-
-        if (other._size > 0) {
-            reallocate(other._capacity);
-            _size = other._size;
-            for (size_t i = 0; i < _size; ++i) {
-                data[i] = other.data[i];
-            }
-        }
-        return *this;
-    }
-
-    void push_back(const T& val) {
-        if (_size == _capacity) {
-            reallocate(_capacity == 0 ? 1 : _capacity * 2);
-        }
-        data[_size++] = val;
-    }
-
-    void resize(size_t n, const T& val = T()) {
-        if (n > _capacity) {
-            reallocate(n);
-        }
-        for (size_t i = _size; i < n; ++i) {
-            data[i] = val;
-        }
-        _size = n;
-    }
-
-    T& operator[](size_t index) {
-        return data[index];
-    }
-
-    const T& operator[](size_t index) const {
-        return data[index];
-    }
-
-    size_t size() const { return _size; }
-    bool empty() const { return _size == 0; }
-
-    T* begin() { return data; }
-    T* end() { return data + _size; }
-    const T* begin() const { return data; }
-    const T* end() const { return data + _size; }
-};
-
-template <typename T>
-class MyQueue {
-    struct Node {
-        T val;
-        Node* next;
-        Node(T v) : val(v), next(nullptr) {}
-    };
-
-    Node* head;
-    Node* tail;
-
-public:
-    MyQueue() : head(nullptr), tail(nullptr) {}
-
-    ~MyQueue() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-
-    void push(T val) {
-        Node* newNode = new Node(val);
-        if (!tail) {
-            head = tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
-
-    void pop() {
-        if (!head) return;
-        Node* temp = head;
-        head = head->next;
-        if (!head) tail = nullptr;
-        delete temp;
-    }
-
-    T front() {
-        return head->val;
-    }
-
-    bool empty() {
-        return head == nullptr;
-    }
-};
-
+void add3(int u, int c) {
+    v3[e3] = c; n3[e3] = h3[u]; h3[u] = e3++;
+}
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    memset(h1, -1, sizeof(h1));
+    memset(h2, -1, sizeof(h2));
+    memset(h3, -1, sizeof(h3));
+    memset(d, -1, sizeof(d));
 
-    int N, K;
-    if (!(cin >> N >> K)) return 0;
+    int n = ri(), k = ri();
+    int cid = 0;
 
-    MyVector<MyVector<Pair<int, int>>> building_to_comps(N + 1);
+    while (k--) {
+        int r = ri();
+        e1 = 0; bc = 0;
 
-    MyVector<MyVector<int>> comp_to_buildings;
-
-    for (int i = 0; i < K; ++i) {
-        int r;
-        cin >> r;
-
-        MyVector<MyVector<int>> adj(N + 1);
-        MyVector<int> current_map_buildings;
-
-        for (int j = 0; j < r; ++j) {
-            int u, v;
-            cin >> u >> v;
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-            current_map_buildings.push_back(u);
-            current_map_buildings.push_back(v);
+        while (r--) {
+            int u = ri(), v = ri();
+            buf[bc++] = u; buf[bc++] = v;
+            add1(u, v); add1(v, u);
         }
 
-        MyVector<bool> visited_in_map(N + 1, false);
+        vid++;
+        for (int i = 0; i < bc; ++i) {
+            int s = buf[i];
+            if (vis[s] == vid) continue;
 
-        for (int b : current_map_buildings) {
-            if (!visited_in_map[b]) {
-                MyVector<int> component;
-                MyQueue<int> q;
+            int c = cid++;
+            int qh = 0, qt = 0;
 
-                q.push(b);
-                visited_in_map[b] = true;
+            vis[s] = vid;
+            q[qt++] = s;
+            add2(c, s); add3(s, c);
 
-                while (!q.empty()) {
-                    int u = q.front();
-                    q.pop();
-                    component.push_back(u);
-
-                    for (int v : adj[u]) {
-                        if (!visited_in_map[v]) {
-                            visited_in_map[v] = true;
-                            q.push(v);
-                        }
+            while (qh < qt) {
+                int u = q[qh++];
+                for (int e = h1[u]; ~e; e = n1[e]) {
+                    int v = t1[e];
+                    if (vis[v] != vid) {
+                        vis[v] = vid;
+                        q[qt++] = v;
+                        add2(c, v); add3(v, c);
                     }
-                }
-
-                int comp_idx = (int)comp_to_buildings.size();
-                comp_to_buildings.push_back(component);
-
-                for (int u : component) {
-                    building_to_comps[u].push_back(Pair<int, int>(i, comp_idx));
                 }
             }
         }
+
+        for (int i = 0; i < bc; ++i) h1[buf[i]] = -1;
     }
 
-    MyVector<int> dist(N + 1, -1);
-    MyVector<bool> comp_used(comp_to_buildings.size(), false);
-    MyQueue<int> q;
+    int qh = 0, qt = 0;
+    d[1] = 0;
+    q[qt++] = 1;
 
-    dist[1] = 0;
-    q.push(1);
-
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-
-        if (u == N) {
-            cout << dist[N] << endl;
+    while (qh < qt) {
+        int u = q[qh++];
+        if (u == n) {
+            printf("%d\n", d[n]);
             return 0;
         }
 
-        for (auto& p : building_to_comps[u]) {
-            int comp_idx = p.second;
+        for (int e = h3[u]; ~e; e = n3[e]) {
+            int c = v3[e];
+            if (used[c]) continue;
+            used[c] = 1;
 
-            if (!comp_used[comp_idx]) {
-                comp_used[comp_idx] = true;
-
-                for (int v : comp_to_buildings[comp_idx]) {
-                    if (dist[v] == -1) {
-                        dist[v] = dist[u] + 1;
-                        q.push(v);
-                    }
+            for (int j = h2[c]; ~j; j = n2[j]) {
+                int v = v2[j];
+                if (d[v] == -1) {
+                    d[v] = d[u] + 1;
+                    q[qt++] = v;
                 }
             }
         }
     }
 
-    cout << dist[N] << endl;
-
+    printf("%d\n", d[n]);
     return 0;
 }

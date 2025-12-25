@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/mugs
+
 #include <stdio.h>
 #include <stdlib.h>
 

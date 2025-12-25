@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/security
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

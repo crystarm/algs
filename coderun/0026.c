@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/avto
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>

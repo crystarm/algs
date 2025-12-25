@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/advertising
+
 #include <stdio.h>
 #include <stdlib.h>
 

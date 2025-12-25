@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/cafe
+
 #include <stdio.h>
 
 #define MAXN 100

@@ -1,3 +1,5 @@
+// https://coderun.yandex.ru/problem/improving-academic-performance
+
 #include <stdio.h>
 
 int main() {
