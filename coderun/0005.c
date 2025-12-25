@@ -16,15 +16,10 @@ int main(void)
     int n;
     int i, j;
 
-    if (scanf("%d", &n) != 1)
-    {
-        return 0;
-    }
+    if (scanf("%d", &n) != 1) return 0;
 
-    for (i = 1; i <= n; i++)
-    {
-        scanf("%d", &cost[i]);
-    }
+
+    for (i = 1; i <= n; i++) { scanf("%d", &cost[i]); }
 
     for (i = 0; i <= n; i++)
     {
@@ -94,20 +89,14 @@ int main(void)
 
     while (i > 0)
     {
-        if (used[i][j])
-        {
-            days[k2++] = i;
-        }
+        if (used[i][j]) days[k2++] = i;
         j = prev_j[i][j];
         i--;
     }
 
     printf("%d %d\n", best_coupons, k2);
 
-    for (i = k2 - 1; i >= 0; i--)
-    {
-        printf("%d\n", days[i]);
-    }
+    for (i = k2 - 1; i >= 0; i--) { printf("%d\n", days[i]); }
 
     return 0;
 }

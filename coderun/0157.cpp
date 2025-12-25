@@ -7,194 +7,145 @@
 #include <map>
 #include <algorithm>
 #include <limits>
-#include <cctype>
 
-class JsonParser {
-public:
-    explicit JsonParser(const std::string& filename) : cursor(0) {
-        std::ifstream file(filename, std::ios::binary);
-        if (file) {
-            file.seekg(0, std::ios::end);
-            source.resize(file.tellg());
-            file.seekg(0, std::ios::beg);
-            file.read(&source[0], source.size());
+std::string json_content;
+size_t pos = 0;
+
+void skip_whitespace()
+{ while (pos < json_content.size() && std::isspace(static_cast<unsigned char>(json_content[pos]))) pos++; }
+
+std::string parse_string()
+{
+    std::string result;
+    if (pos >= json_content.size() || json_content[pos] != '"') return "";
+    pos++;
+
+    while (pos < json_content.size())
+    {
+        char c = json_content[pos];
+        if (c == '"') { pos++; return result; }
+        if (c == '\\')
+        {
+            pos++;
+            if (pos < json_content.size())
+            { result += json_content[pos]; pos++; }
+        } else {result += c; pos++; }
+    }
+    return result;
+}
+
+int parse_int()
+{
+    skip_whitespace();
+    size_t start = pos;
+    if (pos < json_content.size() && json_content[pos] == '-') pos++;
+
+    while (pos < json_content.size() && std::isdigit(static_cast<unsigned char>(json_content[pos]))) pos++;
+
+    if (start == pos) return 0;
+
+    try
+    { return std::stoi(json_content.substr(start, pos - start)); }
+    catch (...) { return 0; }
+}
+
+void skip_value()
+{
+    skip_whitespace();
+    if (pos >= json_content.size()) return;
+
+    char c = json_content[pos];
+    if (c == '"') parse_string();
+    else if (std::isdigit(static_cast<unsigned char>(c)) || c == '-') parse_int();
+    else if (c == '{')
+    {
+        int balance = 1;
+        pos++;
+        while (pos < json_content.size() && balance > 0)
+        {
+            if (json_content[pos] == '{') balance++;
+            if (json_content[pos] == '}') balance--;
+            pos++;
         }
     }
+    else while (pos < json_content.size() && json_content[pos] != ',' && json_content[pos] != '}') pos++;
+}
 
-    bool is_valid() const {
-        return !source.empty();
-    }
-
-    std::map<std::string, int> process() {
-        std::map<std::string, int> max_counts;
-
-        skip_whitespace();
-        if (at_end() || source[cursor] != '[') return max_counts;
-        cursor++;
-
-        while (!at_end()) {
-            skip_whitespace();
-            if (peek() == ']') break;
-
-            if (peek() == '{') {
-                parse_object(max_counts);
-            } else {
-                cursor++;
-            }
-
-            skip_whitespace();
-            if (peek() == ',') cursor++;
-        }
-        return max_counts;
-    }
-
-private:
-    std::string source;
-    size_t cursor;
-
-    bool at_end() const {
-        return cursor >= source.size();
-    }
-
-    char peek() const {
-        if (at_end()) return '\0';
-        return source[cursor];
-    }
-
-    void skip_whitespace() {
-        while (!at_end() && std::isspace(static_cast<unsigned char>(source[cursor]))) {
-            cursor++;
-        }
-    }
-
-    std::string parse_string() {
-        std::string result;
-        if (peek() != '"') return result;
-        cursor++;
-
-        while (!at_end()) {
-            char c = source[cursor];
-            if (c == '"') {
-                cursor++;
-                return result;
-            }
-            if (c == '\\') {
-                cursor++;
-                if (!at_end()) {
-                    result += source[cursor];
-                    cursor++;
-                }
-            } else {
-                result += c;
-                cursor++;
-            }
-        }
-        return result;
-    }
-
-    int parse_int() {
-        skip_whitespace();
-        size_t start = cursor;
-        if (!at_end() && source[cursor] == '-') cursor++;
-        while (!at_end() && std::isdigit(static_cast<unsigned char>(source[cursor]))) {
-            cursor++;
-        }
-
-        if (start == cursor) return 0;
-        try {
-            return std::stoi(source.substr(start, cursor - start));
-        } catch (...) {
-            return 0;
-        }
-    }
-
-    void ignore_value() {
-        skip_whitespace();
-        char c = peek();
-        if (c == '"') {
-            parse_string();
-        } else if (std::isdigit(static_cast<unsigned char>(c)) || c == '-') {
-            parse_int();
-        } else if (c == '{') {
-            int balance = 1;
-            cursor++;
-            while (!at_end() && balance > 0) {
-                if (source[cursor] == '{') balance++;
-                else if (source[cursor] == '}') balance--;
-                cursor++;
-            }
-        } else {
-            while (!at_end() && source[cursor] != ',' && source[cursor] != '}') {
-                cursor++;
-            }
-        }
-    }
-
-    void parse_object(std::map<std::string, int>& max_counts) {
-        cursor++;
-        std::string date;
-        int count = -1;
-        bool has_date = false;
-        bool has_count = false;
-
-        while (!at_end()) {
-            skip_whitespace();
-            if (peek() == '}') {
-                cursor++;
-                break;
-            }
-
-            std::string key = parse_string();
-            skip_whitespace();
-            if (peek() == ':') cursor++;
-
-            if (key == "date") {
-                date = parse_string();
-                has_date = true;
-            } else if (key == "count") {
-                count = parse_int();
-                has_count = true;
-            } else {
-                ignore_value();
-            }
-
-            skip_whitespace();
-            if (peek() == ',') cursor++;
-        }
-
-        if (has_date && has_count) {
-            if (max_counts.find(date) == max_counts.end()) {
-                max_counts[date] = count;
-            } else {
-                max_counts[date] = std::max(max_counts[date], count);
-            }
-        }
-    }
-};
-
-int main() {
+int main()
+{
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
 
-    JsonParser parser("data.json");
-    if (!parser.is_valid()) return 1;
+    std::ifstream file("data.json");
+    if (!file.is_open()) return 1;
 
-    auto counts = parser.process();
+    file.seekg(0, std::ios::end);
+    json_content.reserve(file.tellg());
+    file.seekg(0, std::ios::beg);
 
-    if (counts.empty()) return 0;
+    json_content.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
-    int min_peak = std::numeric_limits<int>::max();
-    for (const auto& [date, val] : counts) {
-        if (val < min_peak) {
-            min_peak = val;
-        }
+    std::map<std::string, int> date_max_counts;
+
+    pos = 0;
+    skip_whitespace();
+
+    if (pos < json_content.size() && json_content[pos] == '[') pos++;
+
+    while (pos < json_content.size())
+    {
+        skip_whitespace();
+        if (json_content[pos] == ']') break;
+
+        if (json_content[pos] == '{')
+        {
+            pos++;
+
+            std::string current_date;
+            int current_count = -1;
+            bool has_date = false;
+            bool has_count = false;
+
+            while (pos < json_content.size())
+            {
+                skip_whitespace();
+                if (json_content[pos] == '}') { pos++; break; }
+
+                std::string key = parse_string();
+
+                skip_whitespace();
+                if (json_content[pos] == ':') pos++;
+
+                skip_whitespace();
+
+                if (key == "date") { current_date = parse_string(); has_date = true; }
+                else if (key == "count") { current_count = parse_int(); has_count = true; }
+                else skip_value();
+
+
+                skip_whitespace();
+                if (json_content[pos] == ',') pos++;
+            }
+
+            if (has_date && has_count)
+            {
+                if (date_max_counts.find(current_date) == date_max_counts.end())
+                { date_max_counts[current_date] = current_count; }
+                else date_max_counts[current_date] = std::max(date_max_counts[current_date], current_count);
+            }
+        } else pos++;
+
+        skip_whitespace();
+        if (json_content[pos] == ',') pos++;
     }
 
-    for (const auto& [date, val] : counts) {
-        if (val == min_peak) {
-            std::cout << date << "\n";
-        }
-    }
+    if (date_max_counts.empty()) return 0;
+
+    int min_of_maxes = std::numeric_limits<int>::max();
+
+    for (const auto& [date, max_val] : date_max_counts) if (max_val < min_of_maxes) min_of_maxes = max_val;
+    for (const auto& [date, max_val] : date_max_counts) if (max_val == min_of_maxes) std::cout << date << "\n";
+
 
     return 0;
 }
