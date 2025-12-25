@@ -1,3 +1,5 @@
+-- https://coderun.yandex.ru/problem/sql-users-active-sessions
+
 WITH t AS (
   SELECT
     user_id,

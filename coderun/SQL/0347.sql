@@ -1,3 +1,5 @@
+-- https://coderun.yandex.ru/problem/genres
+
 WITH RECURSIVE track_full_genres AS (
 
     SELECT
