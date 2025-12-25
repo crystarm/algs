@@ -7,6 +7,7 @@
 #include <map>
 #include <algorithm>
 #include <limits>
+#include <cctype>
 
 std::string json_content;
 size_t pos = 0;
