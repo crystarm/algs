@@ -3,11 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct
-{
-    int *data;
-    int size;
-} MaxHeap;
+typedef struct { int *data; int size; } MaxHeap;
 
 void heap_push(MaxHeap *hp, int val)
 {
@@ -43,6 +39,7 @@ int heap_pop(MaxHeap *hp)
     return res;
 }
 
+
 int main()
 {
     int n;
@@ -73,7 +70,7 @@ int main()
     hp.data = (int *)malloc((n + 1) * sizeof(int));
     hp.size = 0;
 
-    for (int i = 1; i <= n; i++) { if (out_degree[i] == 0) heap_push(&hp, i); }
+    for (int i = 1; i <= n; i++) if (out_degree[i] == 0) heap_push(&hp, i);
 
     int *result = (int *)malloc(n * sizeof(int));
     int res_ptr = 0;
@@ -90,11 +87,10 @@ int main()
             int p = all_prereqs[start + j];
             out_degree[p]--;
             if (out_degree[p] == 0) heap_push(&hp, p);
-
         }
     }
 
-    for (int i = n - 1; i >= 0; i--) { printf("%d%c", result[i], (i == 0 ? '\n' : ' ')); }
+    for (int i = n - 1; i >= 0; i--) printf("%d%c", result[i], (i == 0 ? '\n' : ' '));
 
     free(all_prereqs);
     free(offsets);
