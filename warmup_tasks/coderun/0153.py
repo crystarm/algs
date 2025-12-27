@@ -1,4 +1,5 @@
 # https://coderun.yandex.ru/problem/woods
+# binsearch + greedy
 
 import sys
 

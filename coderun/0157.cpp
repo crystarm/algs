@@ -1,4 +1,5 @@
 // https://coderun.yandex.ru/problem/qx-d
+// FSM + string parsing + data aggregation
 
 #include <iostream>
 #include <fstream>

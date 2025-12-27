@@ -1,3 +1,6 @@
+// https://acmp.ru/index.asp?main=task&id_task=884
+// sliding window + bitmasks
+
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>

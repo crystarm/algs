@@ -1,3 +1,5 @@
+# number theory + combinatorics
+
 import sys
 
 try:
@@ -6,6 +8,7 @@ except AttributeError:
     pass
 
 MOD = 10**9 + 7
+
 
 def solve():
     input_data = sys.stdin.read().split()
@@ -75,7 +78,8 @@ def solve():
 
     while l <= M:
         K = M // l
-        if K == 0: break
+        if K == 0:
+            break
         r = M // K
 
         count_d = (r - l + 1) % MOD
@@ -119,5 +123,6 @@ def solve():
     ans = (term_zero_num + total_sum) % MOD
     print((ans + MOD) % MOD)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     solve()

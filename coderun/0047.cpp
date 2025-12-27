@@ -1,4 +1,5 @@
 // https://coderun.yandex.ru/problem/stalker
+// BFS or smth
 
 #include <cstdio>
 #include <cstring>
@@ -10,7 +11,7 @@ int ri()
 {
     int x = 0, c = getchar();
     while (c < 48 || c > 57) { if (c == EOF) return 0; c = getchar(); }
-    while (c >= 48 && c <= 57) { x = x * 10 + c - 48, c = getchar(); }
+    while (c >= 48 && c <= 57) x = x * 10 + c - 48, c = getchar();
     return x;
 }
 

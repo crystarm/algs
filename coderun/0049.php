@@ -1,46 +1,53 @@
 <?php
 
 // https://coderun.yandex.ru/problem/hack-pentagon
+// constructive algorithm
 
 $line = fgets(STDIN);
-if ($line === false) exit;
-$n = (int)trim($line);
+if ($line === false) {
+    exit();
+}
+$n = (int) trim($line);
 
-$baseString = str_repeat('a', $n);
+$baseString = str_repeat("a", $n);
 
 echo $baseString . "\n";
 flush();
 
 $response = fgets(STDIN);
-if ($response === false) exit;
-$baseDist = (int)trim($response);
+if ($response === false) {
+    exit();
+}
+$baseDist = (int) trim($response);
 
 if ($baseDist === 0) {
-    exit;
+    exit();
 }
 
-$password = '';
+$password = "";
 
 for ($i = 0; $i < $n; $i++) {
-    $baseString[$i] = 'z';
+    $baseString[$i] = "z";
 
     echo $baseString . "\n";
     flush();
 
     $response = fgets(STDIN);
-    if ($response === false) exit;
-    $currentDist = (int)trim($response);
+    if ($response === false) {
+        exit();
+    }
+    $currentDist = (int) trim($response);
 
     if ($currentDist === 0) {
-        exit;
+        exit();
     }
 
-    $baseString[$i] = 'a';
+    $baseString[$i] = "a";
 
     $delta = $currentDist - $baseDist;
     $offset = (25 - $delta) / 2;
 
-    $char = chr(ord('a') + (int)$offset);
+    $char = chr(ord("a") + (int) $offset);
     $password .= $char;
 }
 

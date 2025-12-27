@@ -1,4 +1,5 @@
 // https://acmp.ru/index.asp?main=task&id_task=11
+// arbitrary precision arithmetic
 
 #include <stdio.h>
 #include <stdlib.h>

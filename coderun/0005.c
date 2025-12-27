@@ -1,5 +1,5 @@
 // https://coderun.yandex.ru/problem/cafe
-
+// dynamic
 #include <stdio.h>
 
 #define MAXN 100
@@ -19,7 +19,7 @@ int main(void)
     if (scanf("%d", &n) != 1) return 0;
 
 
-    for (i = 1; i <= n; i++) { scanf("%d", &cost[i]); }
+    for (i = 1; i <= n; i++) scanf("%d", &cost[i]);
 
     for (i = 0; i <= n; i++)
     {
@@ -75,10 +75,7 @@ int main(void)
     for (j = 0; j <= n; j++)
     {
         if (dp[n][j] < min_cost || (dp[n][j] == min_cost && j > best_coupons))
-        {
-            min_cost = dp[n][j];
-            best_coupons = j;
-        }
+        { min_cost = dp[n][j]; best_coupons = j; }
     }
 
     printf("%d\n", min_cost);

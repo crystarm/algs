@@ -1,4 +1,5 @@
 // https://acmp.ru/index.asp?main=task&id_task=861
+// number theory
 
 #include <bits/stdc++.h>
 using namespace std;

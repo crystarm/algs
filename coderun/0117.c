@@ -1,4 +1,5 @@
 // https://coderun.yandex.ru/problem/security
+// sweep line technique + prefix sums
 
 #include <stdio.h>
 #include <stdlib.h>

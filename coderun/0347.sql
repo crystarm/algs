@@ -1,4 +1,5 @@
 -- https://coderun.yandex.ru/problem/genres
+-- data traversal problem
 
 WITH RECURSIVE track_full_genres AS (
 

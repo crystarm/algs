@@ -6,18 +6,9 @@
 
 #define INF_VAL INT_MAX
 
-typedef struct
-{
-    int next_use_idx;
-    int car_id;
-} heap_node_t;
+typedef struct { int next_use_idx; int car_id; } heap_node_t;
 
-typedef struct
-{
-    heap_node_t *buffer;
-    size_t size;
-    size_t capacity;
-} pqueue_t;
+typedef struct { heap_node_t *buffer; size_t size; size_t capacity; } pqueue_t;
 
 pqueue_t* pq_create(size_t capacity)
 {
@@ -53,10 +44,8 @@ void pq_push(pqueue_t *pq, int next_use_idx, int car_id)
     {
         size_t parent = (current - 1) / 2;
         if (pq->buffer[current].next_use_idx > pq->buffer[parent].next_use_idx)
-        {
-            pq_swap(&pq->buffer[current], &pq->buffer[parent]);
-            current = parent;
-        } else break;
+        { pq_swap(&pq->buffer[current], &pq->buffer[parent]); current = parent; }
+        else break;
     }
 }
 
@@ -76,10 +65,8 @@ heap_node_t pq_pop(pqueue_t *pq)
         if (left < pq->size && pq->buffer[left].next_use_idx > pq->buffer[largest].next_use_idx) largest = left;
         if (right < pq->size && pq->buffer[right].next_use_idx > pq->buffer[largest].next_use_idx) largest = right;
 
-        if (largest != current) {
-            pq_swap(&pq->buffer[current], &pq->buffer[largest]);
-            current = largest;
-        } else break;
+        if (largest != current) { pq_swap(&pq->buffer[current], &pq->buffer[largest]); current = largest; }
+        else break;
 
     }
     return root;
@@ -97,7 +84,7 @@ void solve()
     int *requests = (int*)malloc(P * sizeof(int));
     if (!requests) exit(EXIT_FAILURE);
 
-    for (int i = 0; i < P; i++) { scanf("%d", &requests[i]); }
+    for (int i = 0; i < P; i++) scanf("%d", &requests[i]);
 
     int *next_usage_at = (int*)malloc(P * sizeof(int));
     int *last_seen_pos = (int*)malloc((N + 1) * sizeof(int));
@@ -128,10 +115,9 @@ void solve()
 
         car_latest_next_use[current_car] = next_use;
 
-        if (in_cache[current_car])
+        if (in_cache[current_car]) pq_push(heap, next_use, current_car);
+        else
         {
-            pq_push(heap, next_use, current_car);
-        } else {
             operations++;
 
             if (current_cache_size < K)
@@ -143,8 +129,8 @@ void solve()
                 while (!pq_is_empty(heap))
                 {
                     heap_node_t candidate = pq_pop(heap);
-
-                    if (candidate.next_use_idx == car_latest_next_use[candidate.car_id]) { in_cache[candidate.car_id] = 0; break; }
+                    if (candidate.next_use_idx == car_latest_next_use[candidate.car_id])
+                    { in_cache[candidate.car_id] = 0; break; }
                 }
 
                 in_cache[current_car] = 1;
