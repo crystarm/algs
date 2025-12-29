@@ -1,3 +1,6 @@
+// https://acmp.ru/index.asp?main=task&id_task=652
+// range queries + sparse representation + interval splitting
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
