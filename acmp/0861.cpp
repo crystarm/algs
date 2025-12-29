@@ -142,8 +142,8 @@ static string to_string_u128(u128 x)
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     u64 N;
     if (!(cin >> N)) return 0;

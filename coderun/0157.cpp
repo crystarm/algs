@@ -75,8 +75,8 @@ void skip_value()
 
 int main()
 {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
+    std::ios_base::sync_with_stdio(0);
+    std::cin.tie(0);
 
     std::ifstream file("data.json");
     if (!file.is_open()) return 1;

@@ -88,8 +88,8 @@ static inline uint64_t med(uint64_t a, uint64_t b, uint64_t c) { return (a & b) 
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     string in;
     if (!getline(cin, in)) return 0;

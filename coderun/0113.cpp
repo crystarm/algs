@@ -18,8 +18,8 @@ using namespace std;
 struct Customer { int u, v; };
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
 
     int n;
     if (!(cin >> n)) return 0;

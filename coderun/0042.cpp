@@ -6,8 +6,8 @@
 #include <queue>
 
 int main() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
+    std::ios_base::sync_with_stdio(0);
+    std::cin.tie(0);
 
     int n;
     if (!(std::cin >> n)) return 0;
