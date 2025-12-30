@@ -4,13 +4,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using u64 = uint64_t;
-using u128 = __uint128_t;
+typedef unsigned long long u64;
+typedef __uint128_t u128;
+typedef string str;
 
-static inline u64 mul_mod(u64 a, u64 b, u64 mod)
-{
-    return (u128)a * b % mod;
-}
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
+
+static inline u64 mul_mod(u64 a, u64 b, u64 mod) { return (u128)a * b % mod; }
 
 static inline u64 pow_mod(u64 a, u64 d, u64 mod)
 {
@@ -24,33 +27,25 @@ static inline u64 pow_mod(u64 a, u64 d, u64 mod)
     return r;
 }
 
-static inline u64 gcd_u64(u64 a, u64 b)
+static inline u64 gcd(u64 a, u64 b)
 {
-    while (b)
-    {
-        u64 t = a % b;
-        a = b;
-        b = t;
-    }
+    while (b) { u64 t = a % b; a = b; b = t; }
     return a;
 }
 
 static bool is_prime(u64 n)
 {
     if (n < 2) return false;
+
     static u64 small_primes[] = {2ULL,3ULL,5ULL,7ULL,11ULL,13ULL,17ULL,19ULL,23ULL,29ULL,31ULL,37ULL};
     for (u64 p : small_primes)
     {
         if (n == p) return true;
-        if (n % p == 0) return (n == p);
+        if (n % p == 0) return false;
     }
 
     u64 d = n - 1, s = 0;
-    while ((d & 1) == 0)
-    {
-        d >>= 1;
-        ++s;
-    }
+    while ((d & 1) == 0) { d >>= 1; ++s; }
 
     auto witness = [&](u64 a) -> bool
     {
@@ -65,7 +60,7 @@ static bool is_prime(u64 n)
         return true;
     };
 
-    static u64 bases[] = {2ULL, 3ULL, 5ULL, 7ULL, 11ULL, 13ULL, 17ULL, 19ULL, 23ULL, 29ULL, 31ULL, 37ULL};
+    static u64 bases[] = {2ULL,3ULL,5ULL,7ULL,11ULL,13ULL,17ULL,19ULL,23ULL,29ULL,31ULL,37ULL};
     for (u64 a : bases)
     {
         if (a >= n) continue;
@@ -97,46 +92,39 @@ static u64 pollard_rho(u64 n)
         u64 d = 1;
 
         auto f = [&](u64 v) -> u64
-        {
-            return (mul_mod(v, v, n) + c) % n;
-        };
+        { return (mul_mod(v, v, n) + c) % n; };
 
         while (d == 1)
         {
             x = f(x);
             y = f(f(y));
             u64 diff = (x > y) ? (x - y) : (y - x);
-            d = gcd_u64(diff, n);
+            d = gcd(diff, n);
         }
-
         if (d != n) return d;
     }
 }
 
-static void factor(u64 n, vector<u64> &out)
+static void factor(u64 n, vector<u64>& out)
 {
     if (n == 1) return;
-    if (is_prime(n))
-    {
-        out.push_back(n);
-        return;
-    }
+    if (is_prime(n)) { out.pb(n); return; }
     u64 d = pollard_rho(n);
     factor(d, out);
     factor(n / d, out);
 }
 
-static string to_string_u128(u128 x)
+static str to_string_u128(u128 x)
 {
     if (x == 0) return "0";
-    string s;
+    str s;
     while (x)
     {
         int digit = (int)(x % 10);
         s.push_back(char('0' + digit));
         x /= 10;
     }
-    reverse(s.begin(), s.end());
+    reverse(all(s));
     return s;
 }
 
@@ -145,40 +133,31 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    u64 N;
-    if (!(cin >> N)) return 0;
+    u64 n;
+    if (!(cin >> n)) return 0;
 
-    if (N == 1)
-    {
-        cout << 1 << "\n";
-        return 0;
-    }
+    if (n == 1) { cout << 1 << '\n'; return 0; }
 
     vector<u64> f;
-    factor(N, f);
-    sort(f.begin(), f.end());
+    factor(n, f);
+    sort(all(f));
 
     u128 ans = 1;
-    for (size_t i = 0; i < f.size(); )
+
+    int i = 0;
+    while (i < sz(f))
     {
         u64 p = f[i];
         int a = 0;
-        while (i < f.size() && f[i] == p)
-        {
-            ++a;
-            ++i;
-        }
+        while (i < sz(f) && f[i] == p) { ++a; ++i; }
 
         u128 pow_pa_1 = 1;
-        for (int k = 1; k <= a - 1; ++k)
-        {
-            pow_pa_1 *= (u128)p;
-        }
+        rep(k, 1, a) pow_pa_1 *= (u128)p;
 
         u128 term = pow_pa_1 * (((u128)(a + 1) * (u128)p) - (u128)a);
         ans *= term;
     }
 
-    cout << to_string_u128(ans) << "\n";
+    cout << to_string_u128(ans) << '\n';
     return 0;
 }

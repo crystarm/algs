@@ -1,51 +1,58 @@
 // https://acmp.ru/index.asp?main=task&id_task=652
 // range queries + sparse representation + interval splitting
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
 
-struct Node { ll len, val; int d; };
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
 
-vector<Node> v;
+struct node { ll len, val; int d; };
 
-int split(ll pos) {
+typedef vector<node> vn;
+
+vn v;
+
+int split(ll pos)
+{
     ll cur = 1;
-    for (int i = 0; i < v.size(); ++i)
+    rep(i, 0, sz(v))
     {
         if (cur == pos) return i;
         if (cur + v[i].len > pos)
         {
-            ll l_part = pos - cur;
-            ll r_part = v[i].len - l_part;
+            ll l = pos - cur;
+            ll r = v[i].len - l;
 
-            Node next = {r_part, v[i].val + l_part * v[i].d, v[i].d};
-            v[i].len = l_part;
+            node nxt = {r, v[i].val + l * v[i].d, v[i].d};
+            v[i].len = l;
 
-            v.insert(v.begin() + i + 1, next);
+            v.insert(v.begin() + i + 1, nxt);
             return i + 1;
         }
         cur += v[i].len;
     }
-    return v.size();
+    return sz(v);
 }
 
 int main()
 {
-    ios_base::sync_with_stdio(0); cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    ll n; int k;
+    ll n;
+    int k;
     if (!(cin >> n >> k)) return 0;
 
-    v.push_back({n, 1, 1});
+    v.pb({n, 1, 1});
 
     while (k--)
     {
-        char op; ll l, r;
+        char op;
+        ll l, r;
         cin >> op >> l >> r;
 
         int p1 = split(l);
@@ -54,7 +61,7 @@ int main()
         if (op == 'I')
         {
             reverse(v.begin() + p1, v.begin() + p2);
-            for (int i = p1; i < p2; ++i)
+            rep(i, p1, p2)
             {
                 v[i].val += (v[i].len - 1) * v[i].d;
                 v[i].d = -v[i].d;
@@ -62,11 +69,11 @@ int main()
         }
         else
         {
-            ll sum = 0;
-            for (int i = p1; i < p2; ++i)
-                sum += v[i].len * (2 * v[i].val + (v[i].len - 1) * v[i].d) / 2;
-            cout << sum << "\n";
+            ll ans = 0;
+            rep(i, p1, p2) ans += v[i].len * (2 * v[i].val + (v[i].len - 1) * v[i].d) / 2;
+            cout << ans << '\n';
         }
     }
+
     return 0;
 }

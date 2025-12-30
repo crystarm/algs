@@ -1,49 +1,54 @@
 // https://acmp.ru/index.asp?main=task&id_task=884
 // sliding window + bitmasks
 
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
+#include <bits/stdc++.h>
+using namespace std;
 
-#define A_BITS 13
-#define B_BITS 13
-#define A_STATES (1u << A_BITS)
-#define B_STATES (1u << B_BITS)
-#define WORDS (B_STATES / 64u)
-#define FULLA (A_STATES - 1u)
-#define FULLB (B_STATES - 1u)
+typedef string str;
 
-#define POOL_SIZE 1594323
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
+
+static const int A_BITS = 13;
+static const int B_BITS = 13;
+static const int A_STATES = 1 << A_BITS;
+static const int B_STATES = 1 << B_BITS;
+static const int WORDS = B_STATES / 64;
+static const unsigned FULLA = (unsigned)A_STATES - 1u;
+static const unsigned FULLB = (unsigned)B_STATES - 1u;
+
+static const int POOL_SIZE = 1594323;
 
 static uint64_t bad[A_STATES][WORDS];
 static uint64_t pat0[B_BITS][WORDS];
 static uint32_t off[B_STATES + 1];
 static uint16_t pool[POOL_SIZE];
 
-static inline void build_patterns(void)
+static inline void build_patterns()
 {
-    for (unsigned m = 0; m < B_STATES; ++m)
+    rep(m, 0, B_STATES)
     {
-        unsigned w = m >> 6;
-        unsigned b = m & 63u;
+        unsigned w = (unsigned)m >> 6;
+        unsigned b = (unsigned)m & 63u;
         uint64_t bit = 1ULL << b;
-        for (unsigned i = 0; i < B_BITS; ++i) if (((m >> i) & 1u) == 0u) pat0[i][w] |= bit;
+        rep(i, 0, B_BITS) if ((((unsigned)m >> (unsigned)i) & 1u) == 0u) pat0[i][w] |= bit;
     }
 }
 
-static inline void build_pool(void)
+static inline void build_pool()
 {
     off[0] = 0;
-    for (unsigned b = 0; b < B_STATES; ++b)
+    rep(b, 0, B_STATES)
     {
-        unsigned zeros = B_BITS - (unsigned)__builtin_popcount(b);
+        unsigned zeros = (unsigned)B_BITS - (unsigned)__builtin_popcount((unsigned)b);
         off[b + 1] = off[b] + (1u << zeros);
     }
 
     uint32_t idx = 0;
-    for (unsigned b = 0; b < B_STATES; ++b)
+    rep(b, 0, B_STATES)
     {
-        unsigned c = (~b) & FULLB;
+        unsigned c = (~(unsigned)b) & FULLB;
         unsigned m = c;
         for (;;)
         {
@@ -56,7 +61,7 @@ static inline void build_pool(void)
 
 static inline void add_window(uint32_t wa, uint32_t wb)
 {
-    uint64_t *row = bad[wa];
+    uint64_t* row = bad[wa];
 
     uint32_t lo = off[wb];
     uint32_t hi = off[wb + 1];
@@ -73,7 +78,11 @@ static inline void add_window(uint32_t wa, uint32_t wb)
         return;
     }
 
-    if (wb == 0u) { for (unsigned w = 0; w < WORDS; ++w) row[w] = ~0ULL; return; }
+    if (wb == 0u)
+    {
+        rep(w, 0, WORDS) row[w] = ~0ULL;
+        return;
+    }
 
     uint64_t tmp[WORDS];
     unsigned first = (unsigned)__builtin_ctz(wb);
@@ -84,41 +93,41 @@ static inline void add_window(uint32_t wa, uint32_t wb)
     {
         unsigned i = (unsigned)__builtin_ctz(rest);
         rest &= rest - 1u;
-        uint64_t *p = pat0[i];
-        for (unsigned w = 0; w < WORDS; ++w) tmp[w] &= p[w];
-
+        uint64_t* p = pat0[i];
+        rep(w, 0, WORDS) tmp[w] &= p[w];
     }
 
-    for (unsigned w = 0; w < WORDS; ++w) row[w] |= tmp[w];
-
+    rep(w, 0, WORDS) row[w] |= tmp[w];
 }
 
-static inline void sos_or_transform(void)
+static inline void sos_or_transform()
 {
-    for (unsigned bit = 0; bit < A_BITS; ++bit)
+    rep(bit, 0, A_BITS)
     {
-        unsigned b = 1u << bit;
-        for (unsigned m = 0; m < A_STATES; ++m)
+        unsigned b = 1u << (unsigned)bit;
+        rep(m, 0, A_STATES)
         {
-            if (m & b)
+            if ((unsigned)m & b)
             {
-                uint64_t *dst = bad[m];
-                uint64_t *src = bad[m ^ b];
-                for (unsigned w = 0; w < WORDS; ++w) dst[w] |= src[w];
+                uint64_t* dst = bad[m];
+                uint64_t* src = bad[m ^ (int)b];
+                rep(w, 0, WORDS) dst[w] |= src[w];
             }
         }
     }
 }
 
-int main(void)
+int main()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
     int K;
-    static char s[100000 + 5];
+    str s;
+    if (!(cin >> K)) return 0;
+    if (!(cin >> s)) return 0;
 
-    if (scanf("%d", &K) != 1) return 0;
-    if (scanf("%100000s", s) != 1) return 0;
-
-    int L = (int)strlen(s);
+    int L = sz(s);
 
     build_patterns();
     build_pool();
@@ -127,14 +136,14 @@ int main(void)
     memset(cnt, 0, sizeof(cnt));
     uint32_t mask = 0u;
 
-    for (int i = 0; i < K; ++i)
+    rep(i, 0, K)
     {
         int c = s[i] - 'A';
         if (cnt[c]++ == 0) mask |= 1u << (unsigned)c;
     }
 
     int windows = L - K + 1;
-    for (int start = 0; start < windows; ++start)
+    rep(start, 0, windows)
     {
         uint32_t wa = mask & FULLA;
         uint32_t wb = (mask >> A_BITS) & FULLB;
@@ -154,22 +163,23 @@ int main(void)
 
     static uint16_t tb_order[B_STATES];
     unsigned pos = 0;
-    for (unsigned pc = 0; pc <= B_BITS; ++pc)
-        for (unsigned tb = 0; tb < B_STATES; ++tb)
-            if ((unsigned)__builtin_popcount(tb) == pc) tb_order[pos++] = (uint16_t)tb;
+    rep(pc, 0, B_BITS + 1)
+        rep(tb, 0, B_STATES)
+            if ((unsigned)__builtin_popcount((unsigned)tb) == (unsigned)pc)
+                tb_order[pos++] = (uint16_t)tb;
 
     int bestN = 27;
-    uint32_t bestTa = 0, bestTb = 0;
+    uint32_t bestTa = 0u, bestTb = 0u;
 
-    for (uint32_t ta = 0; ta < A_STATES; ++ta)
+    rep(ta, 0, A_STATES)
     {
-        int pa = __builtin_popcount(ta);
+        int pa = __builtin_popcount((unsigned)ta);
         if (pa >= bestN) continue;
 
-        uint32_t x = (~ta) & FULLA;
-        uint64_t *inv = bad[x];
+        uint32_t x = (~(uint32_t)ta) & FULLA;
+        uint64_t* inv = bad[x];
 
-        for (unsigned i = 0; i < B_STATES; ++i)
+        rep(i, 0, B_STATES)
         {
             uint32_t tb = tb_order[i];
             int pb = __builtin_popcount(tb);
@@ -178,24 +188,16 @@ int main(void)
             if ((inv[tb >> 6] & (1ULL << (tb & 63u))) == 0u)
             {
                 bestN = pa + pb;
-                bestTa = ta;
+                bestTa = (uint32_t)ta;
                 bestTb = tb;
                 break;
             }
         }
     }
 
-    printf("%d\n", bestN);
-    for (unsigned i = 0; i < A_BITS; ++i)
-    {
-        if ((bestTa >> i) & 1u)
-        { putchar('A' + (int)i); putchar('\n'); }
-    }
-    for (unsigned i = 0; i < B_BITS; ++i)
-    {
-        if ((bestTb >> i) & 1u)
-        { putchar('A' + (int)(A_BITS + i)); putchar('\n'); }
-    }
+    cout << bestN << '\n';
+    rep(i, 0, A_BITS) if (((bestTa >> (unsigned)i) & 1u) != 0u) cout << char('A' + i) << '\n';
+    rep(i, 0, B_BITS) if (((bestTb >> (unsigned)i) & 1u) != 0u) cout << char('A' + (A_BITS + i)) << '\n';
 
     return 0;
 }

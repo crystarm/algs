@@ -4,7 +4,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Parser
+typedef long long ll;
+
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define epl emplace
+#define rsr reserve
+#define mv move
+#define pb push_back
+
+struct parser
 {
     string s;
     size_t p = 0;
@@ -12,8 +22,8 @@ struct Parser
     vector<uint64_t> varMask;
     uint64_t fullMask;
 
-    Parser(string str, unordered_map<char, int> m, vector<uint64_t> vm, uint64_t fm)
-        : s(std::move(str)), vidx(std::move(m)), varMask(std::move(vm)), fullMask(fm) {}
+    parser(string str, unordered_map<char, int> m, vector<uint64_t> vm, uint64_t fm)
+        : s(mv(str)), vidx(mv(m)), varMask(mv(vm)), fullMask(fm) {}
 
     void skip() { while (p < s.size() && isspace((unsigned char)s[p])) p++; }
 
@@ -45,7 +55,8 @@ struct Parser
     uint64_t parse_and()
     {
         uint64_t v = parse_unary();
-        while (true) {
+        while (true)
+        {
             if (!match('&')) break;
             v &= parse_unary();
         }
@@ -91,81 +102,81 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    string in;
-    if (!getline(cin, in)) return 0;
+    string s;
+    if (!getline(cin, s)) return 0;
 
     vector<char> vars;
     {
         bool seen[256]{0};
-        for (unsigned char ch : in)
+        for (unsigned char ch : s)
             if ('a' <= ch && ch <= 'z' && !seen[ch])
             {
                 seen[ch] = true;
-                vars.push_back((char)ch);
+                vars.pb((char)ch);
             }
-        sort(vars.begin(), vars.end());
+        sort(all(vars));
     }
 
-    int k = (int)vars.size();
+    int k = sz(vars);
     unordered_map<char, int> vidx;
-    vidx.reserve(k * 2 + 1);
-    for (int i = 0; i < k; i++) vidx[vars[i]] = i;
+    vidx.rsr(k * 2 + 1);
+    rep(i, 0, k) vidx[vars[i]] = i;
 
-    int bits = 1 << k;
-    uint64_t fullMask = (bits == 64) ? ~0ULL : ((1ULL << bits) - 1ULL);
+    int n = 1 << k;
+    uint64_t fullMask = (n == 64) ? ~0ULL : ((1ULL << n) - 1ULL);
 
     vector<uint64_t> varMask(k, 0);
-    for (int i = 0; i < k; i++)
+    rep(i, 0, k)
     {
         uint64_t m = 0;
-        for (int a = 0; a < bits; a++) if ((a >> i) & 1) m |= (1ULL << a);
+        rep(mask, 0, n) if ((mask >> i) & 1) m |= (1ULL << mask);
         varMask[i] = m;
     }
 
-    Parser ps(in, vidx, varMask, fullMask);
+    parser ps(s, vidx, varMask, fullMask);
     uint64_t target = ps.parse();
 
     unordered_map<uint64_t, string> repr;
-    repr.reserve(256);
+    repr.rsr(256);
     vector<uint64_t> funcs;
-    funcs.reserve(256);
+    funcs.rsr(256);
 
-    for (int i = 0; i < k; i++)
+    rep(i, 0, k)
     {
         uint64_t m = varMask[i];
-        repr.emplace(m, string(1, vars[i]));
-        funcs.push_back(m);
+        repr.epl(m, string(1, vars[i]));
+        funcs.pb(m);
     }
 
     bool added = true;
     while (added)
     {
         added = false;
-        int n = (int)funcs.size();
-        for (int i = 0; i < n; i++)
+        int cnt = sz(funcs);
+        rep(i, 0, cnt)
         {
             uint64_t a = funcs[i];
-            for (int j = i; j < n; j++)
+            for (int j = i; j < cnt; j++)
             {
                 uint64_t b = funcs[j];
-                for (int t = j; t < n; t++)
+                for (int t = j; t < cnt; t++)
                 {
                     uint64_t c = funcs[t];
                     uint64_t m = med(a, b, c);
                     if (repr.find(m) == repr.end())
                     {
-                        const string &ea = repr[a];
-                        const string &eb = repr[b];
-                        const string &ec = repr[c];
-                        string s;
-                        s.reserve(2 + ea.size() + eb.size() + ec.size());
-                        s.push_back('<');
-                        s += ea;
-                        s += eb;
-                        s += ec;
-                        s.push_back('>');
-                        repr.emplace(m, std::move(s));
-                        funcs.push_back(m);
+                        const string& ea = repr[a];
+                        const string& eb = repr[b];
+                        const string& ec = repr[c];
+                        string tmp;
+                        tmp.rsr(2 + ea.size() + eb.size() + ec.size());
+                        tmp.pb('<');
+                        tmp += ea;
+                        tmp += eb;
+                        tmp += ec;
+                        tmp.pb('>');
+                        repr.epl(m, mv(tmp));
+                        funcs.pb(m);
                         added = true;
                     }
                 }
@@ -174,6 +185,6 @@ int main()
     }
 
     auto it = repr.find(target);
-    if (it != repr.end()) cout << it->second << "\n";
+    if (it != repr.end()) cout << it->second << '\n';
     return 0;
 }

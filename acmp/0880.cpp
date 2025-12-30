@@ -4,13 +4,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-using pii = pair<int, int>;
-using vi = vector<int>;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+typedef string str;
 
 #define all(x) (x).begin(), (x).end()
-#define sz(x) (int)(x).size()
-#define rep(i, a, b) for (int i = (a); i < (b); ++i)
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define rsr reserve
+#define pb push_back
 
 const int INF = 1e9;
 
@@ -23,11 +24,12 @@ int main()
     if (!(cin >> m >> n)) return 0;
 
     vector<pii> p;
-    p.reserve(9);
+    p.rsr(9);
     rep(r, 0, 3)
     {
-        string s; cin >> s;
-        rep(c, 0, 3) if (s[c] == 'X') p.push_back({r, c});
+        str s;
+        cin >> s;
+        rep(c, 0, 3) if (s[c] == 'X') p.pb({r, c});
     }
 
     int M = 1 << m;
@@ -59,8 +61,9 @@ int main()
                     else m2 |= (1 << cx);
                 }
             }
-
-            b0[i] = m0; b1[i] = m1; b2[i] = m2;
+            b0[i] = m0;
+            b1[i] = m1;
+            b2[i] = m2;
         }
 
         u0[0] = u1[0] = u2[0] = w[0] = 0;
@@ -90,7 +93,6 @@ int main()
                 z[mk0] = f[base + mk0];
                 if (z[mk0] < INF) ok = true;
             }
-
             if (!ok) continue;
 
             rep(i, 0, m)
@@ -110,13 +112,12 @@ int main()
                 int cand = val + w[s];
                 if (cand < cell) cell = cand;
             }
-        }
-        f.swap(g);
+        } f.swap(g);
     }
 
     int ans = INF;
     for (int x : f) ans = min(ans, x);
-    cout << ans << "\n";
 
+    cout << ans << '\n';
     return 0;
 }

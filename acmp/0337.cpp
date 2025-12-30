@@ -1,33 +1,34 @@
 // https://acmp.ru/index.asp?main=task&id_task=337
 // modified inclusion-exclusion principle + a bit of number theory + LCM value states compression
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <map>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
 
-template <typename t_iter>
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define rsr reserve
+#define pb push_back
+#define fi first
+#define se second
 
-void mysort(t_iter L, t_iter R)
+template <typename it>
+void mysort(it L, it R)
 {
     if (R <= L) return;
     auto M = *(L + distance(L, R) / 2);
-    t_iter i = L, j = R;
-
+    it i = L, j = R;
     do
     {
         while (M > *i) i++;
         while (*j > M) j--;
         if (i >= j) break;
         swap(*i, *j);
-        i++; j--;
-
+        i++;
+        j--;
     } while (i <= j);
-
     mysort(L, j);
     mysort(j + 1, R);
 }
@@ -36,62 +37,63 @@ ll gcd(ll a, ll b) { while (b) { a %= b; swap(a, b); } return a; }
 
 int main()
 {
-    ios_base::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
 
     ll n;
     int k;
     if (!(cin >> n >> k)) return 0;
 
-    map<int, int> m;
-    for (int i = 0; i < k; ++i) { int x; cin >> x; m[x]++; }
+    map<int, int> cnt;
+    rep(i, 0, k) { int x; cin >> x; cnt[x]++; }
 
-    vector<int> v;
-    for (auto const& [val, cnt] : m) if (cnt % 2 != 0) v.push_back(val);
+    vector<int> a;
+    for (auto const& it : cnt) if (it.se & 1) a.pb(it.fi);
 
-    if (!v.empty()) mysort(v.rbegin(), v.rend() - 1);
+    if (!a.empty()) mysort(a.rbegin(), a.rend() - 1);
 
-    vector<pair<ll, ll>> s;
-    s.reserve(100000);
+    vector<pair<ll, ll>> cur;
+    cur.rsr(100000);
 
-    for (int x : v)
+    for (int x : a)
     {
         vector<pair<ll, ll>> tmp;
 
-        if (x <= n) tmp.push_back({(ll)x, 1});
-        for (const auto& p : s)
+        if ((ll)x <= n) tmp.pb({(ll)x, 1});
+
+        for (const auto& p : cur)
         {
-            ll l = p.first;
-            ll c = p.second;
-            ll g = gcd(l, x);
-            ll mult = x / g;
+            ll l = p.fi;
+            ll c = p.se;
+
+            ll g = gcd(l, (ll)x);
+            ll mult = (ll)x / g;
 
             if (l > n / mult) continue;
 
-            tmp.push_back({l * mult, c * -2});
+            tmp.pb({l * mult, c * -2});
         }
 
-        s.insert(s.end(), tmp.begin(), tmp.end());
+        cur.insert(cur.end(), all(tmp));
 
-        if (!s.empty()) mysort(s.begin(), s.end() - 1);
+        if (!cur.empty()) mysort(cur.begin(), cur.end() - 1);
 
-        vector<pair<ll, ll>> next_s;
-        next_s.reserve(s.size());
+        vector<pair<ll, ll>> nxt;
+        nxt.rsr(sz(cur));
 
-        for (const auto& p : s)
+        for (const auto& p : cur)
         {
-            if (!next_s.empty() && next_s.back().first == p.first) next_s.back().second += p.second;
-            else next_s.push_back(p);
+            if (!nxt.empty() && nxt.back().fi == p.fi) nxt.back().se += p.se;
+            else nxt.pb(p);
         }
 
-        s.clear();
-        for (const auto& p : next_s) if(p.second != 0) s.push_back(p);
+        cur.clear();
+        for (const auto& p : nxt) if (p.se != 0) cur.pb(p);
     }
 
     ll ans = 0;
-    for (const auto& p : s) ans += (n / p.first) * p.second;
+    for (const auto& p : cur) ans += (n / p.fi) * p.se;
 
-    cout << ans << endl;
-
+    cout << ans << '\n';
     return 0;
 }

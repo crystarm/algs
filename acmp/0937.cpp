@@ -1,94 +1,98 @@
 // https://acmp.ru/index.asp?main=task&id_task=937
-// scopes + recurcive parsing + interpreting
+// scopes + recursive parsing + interpreting
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include <cctype>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-using str = string;
-using ctx_t = map<str, str>;
+typedef string str;
 
-str parse_id(const str& buf, int& ptr)
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+
+static str parse_id(const str& s, int& ptr)
 {
     str id;
-    while (ptr < buf.size() && islower(buf[ptr])) id += buf[ptr++];
-    if (ptr < buf.size() && buf[ptr] == ' ') ptr++;
+    while (ptr < sz(s) && s[ptr] >= 'a' && s[ptr] <= 'z') id += s[ptr++];
+    if (ptr < sz(s) && s[ptr] == ' ') ptr++;
     return id;
 }
 
-int parse_int(const str& buf, int& ptr)
+static int parse_int(const str& s, int& ptr)
 {
-    str num_s;
-    while (ptr < buf.size() && isdigit(buf[ptr])) num_s += buf[ptr++];
-    if (ptr < buf.size() && buf[ptr] == ' ') ptr++;
-    return num_s.empty() ? 0 : stoi(num_s);
+    int x = 0;
+    bool any = false;
+    while (ptr < sz(s) && s[ptr] >= '0' && s[ptr] <= '9')
+    {
+        any = true;
+        x = x * 10 + (s[ptr++] - '0');
+    }
+    if (ptr < sz(s) && s[ptr] == ' ') ptr++;
+    return any ? x : 0;
 }
 
-str parse_blk(const str& buf, int& ptr)
+static str parse_blk(const str& s, int& ptr)
 {
     int bal = 1;
     int start = ++ptr;
-    while (ptr < buf.size() && bal)
+    while (ptr < sz(s) && bal)
     {
-        if (buf[ptr] == '{') bal++;
-        else if (buf[ptr] == '}') bal--;
+        if (s[ptr] == '{') bal++;
+        else if (s[ptr] == '}') bal--;
         if (bal) ptr++;
     }
-    return buf.substr(start, ptr++ - start);
+    return s.substr(start, ptr++ - start);
 }
 
-void exec(const str& buf, ctx_t ctx)
+static void exec(const str& s, map<str, str> ctx)
 {
     int ptr = 0;
-    int len = buf.size();
+    int n = sz(s);
 
-    while (ptr < len)
+    while (ptr < n)
     {
-        if (buf[ptr] == '#')
+        if (s[ptr] == '#')
         {
-            if (ptr + 1 < len && buf[ptr + 1] == '#')
+            if (ptr + 1 < n && s[ptr + 1] == '#')
             {
                 ptr += 2;
-                str id = parse_id(buf, ptr);
+                str id = parse_id(s, ptr);
                 if (ctx.count(id)) exec(ctx[id], ctx);
             }
             else
             {
                 ptr++;
-                str id = parse_id(buf, ptr);
+                str id = parse_id(s, ptr);
                 if (id == "rep")
                 {
-                    int n = parse_int(buf, ptr);
-                    str blk = parse_blk(buf, ptr);
-                    while (n--) exec(blk, ctx);
-                } else ctx[id] = parse_blk(buf, ptr);
+                    int k = parse_int(s, ptr);
+                    str blk = parse_blk(s, ptr);
+                    while (k--) exec(blk, ctx);
+                }
+                else ctx[id] = parse_blk(s, ptr);
             }
-        } else cout << buf[ptr++];
+        }
+        else cout << s[ptr++];
     }
 }
 
 int main()
 {
-    ios_base::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int n_lines;
-    if (cin >> n_lines)
-    {
-        str tmp, full_buf;
-        getline(cin, tmp);
+    int n;
+    if (!(cin >> n)) return 0;
 
-        for (int i = 0; i < n_lines; ++i)
-        {
-            getline(cin, tmp);
-            full_buf += tmp;
-            if (i < n_lines - 1) full_buf += '\n';
-        }
-        exec(full_buf, {});
+    str tmp, s;
+    getline(cin, tmp);
+
+    rep(i, 0, n)
+    {
+        getline(cin, tmp);
+        s += tmp;
+        if (i + 1 < n) s += '\n';
     }
+
+    exec(s, {});
     return 0;
 }

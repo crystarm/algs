@@ -1,34 +1,43 @@
 // https://acmp.ru/index.asp?main=task&id_task=866
 // st numbering + graph biconnectivity + ear decomposition
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cstring>
-
+#include <bits/stdc++.h>
 using namespace std;
 
+typedef vector<int> vi;
+
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
+#define ins insert
+#define rev reverse
+
 const int MAXN = 505;
-vector<int> g[MAXN];
+
+vi g[MAXN];
 bool in_res[MAXN];
-int n, m;
-int q[MAXN], p[MAXN];
 bool vis[MAXN];
+int q[MAXN], p[MAXN];
 
-int main() {
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    if (scanf("%d %d", &n, &m) != 2) return 0;
+    int n, m;
+    if (!(cin >> n >> m)) return 0;
 
-    for (int i = 0; i < m; ++i)
+    rep(i, 0, m)
     {
         int u, v;
-        scanf("%d %d", &u, &v);
-        g[u].push_back(v);
-        g[v].push_back(u);
+        cin >> u >> v;
+        g[u].pb(v);
+        g[v].pb(u);
     }
 
     int s = 1, t = g[1][0];
-    vector<int> res;
+    vi res;
 
     int qh = 0, qt = 0;
     q[qt++] = s;
@@ -37,7 +46,7 @@ int main() {
     vis[s] = true;
 
     bool ok = false;
-    while(qh < qt)
+    while (qh < qt)
     {
         int u = q[qh++];
         if (u == t) { ok = true; break; }
@@ -56,81 +65,84 @@ int main() {
     if (ok)
     {
         int cur = t;
-        while (cur != s)
-        {
-            res.push_back(cur);
-            cur = p[cur];
-        }
-        res.push_back(s);
-        reverse(res.begin(), res.end());
-    } else { res.push_back(s); res.push_back(t); }
+        while (cur != s) { res.pb(cur); cur = p[cur]; }
+        res.pb(s);
+        rev(all(res));
+    }
+    else
+    { res.pb(s); res.pb(t); }
 
     memset(in_res, 0, sizeof(in_res));
     for (int x : res) in_res[x] = true;
 
-    while (res.size() < n)
+    while (sz(res) < n)
     {
         bool added = false;
-        for (int i = 0; i < res.size(); ++i)
+
+        rep(i, 0, sz(res))
         {
             int u = res[i];
+
             int start_node = -1;
             for (int v : g[u]) if (!in_res[v]) { start_node = v; break; }
-
             if (start_node == -1) continue;
 
-            qh = 0; qt = 0;
+            qh = 0;
+            qt = 0;
             q[qt++] = start_node;
             memset(vis, 0, sizeof(vis));
             memset(p, 0, sizeof(p));
             vis[start_node] = true;
 
             int target = -1;
-            int curr_v = -1;
+            int cur = -1;
 
             while (qh < qt)
             {
-                int cur = q[qh++];
+                int x = q[qh++];
                 bool found = false;
-                for (int nxt : g[cur])
+
+                for (int nxt : g[x])
                 {
-                    if (nxt == u && cur == start_node) continue;
+                    if (nxt == u && x == start_node) continue;
+
                     if (in_res[nxt])
                     {
                         target = nxt;
-                        curr_v = cur;
+                        cur = x;
                         found = true;
                         break;
                     }
+
                     if (!vis[nxt])
                     {
                         vis[nxt] = true;
-                        p[nxt] = cur;
+                        p[nxt] = x;
                         q[qt++] = nxt;
                     }
                 }
+
                 if (found) break;
             }
 
             if (target != -1)
             {
-                vector<int> path;
-                while (curr_v != 0)
+                vi path;
+                while (cur != 0)
                 {
-                    path.push_back(curr_v);
-                    curr_v = p[curr_v];
+                    path.pb(cur);
+                    cur = p[cur];
                 }
-                reverse(path.begin(), path.end());
+                rev(all(path));
 
                 int target_idx = -1;
-                for (int k = 0; k < res.size(); ++k) if (res[k] == target) { target_idx = k; break; }
+                rep(j, 0, sz(res)) if (res[j] == target) { target_idx = j; break; }
 
-
-                if (i < target_idx) res.insert(res.begin() + i + 1, path.begin(), path.end());
+                if (i < target_idx) res.ins(res.begin() + i + 1, all(path));
                 else
                 {
-                    reverse(path.begin(), path.end());
-                    res.insert(res.begin() + target_idx + 1, path.begin(), path.end());
+                    rev(all(path));
+                    res.ins(res.begin() + target_idx + 1, all(path));
                 }
 
                 for (int x : path) in_res[x] = true;
@@ -138,14 +150,15 @@ int main() {
                 break;
             }
         }
+
         if (!added) break;
     }
 
-    for (int i = 0; i < n; ++i) printf("%d%c", res[i], (i == n - 1 ? '\n' : ' '));
+    rep(i, 0, n) cout << res[i] << (i + 1 == n ? '\n' : ' ');
 
-    printf("1");
-    for (int i = n - 1; i >= 1; --i) printf(" %d", res[i]);
-    printf("\n");
+    cout << 1;
+    for (int i = n - 1; i >= 1; --i) cout << ' ' << res[i];
+    cout << '\n';
 
     return 0;
 }
