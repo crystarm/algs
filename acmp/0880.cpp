@@ -10,7 +10,7 @@ typedef string str;
 
 #define all(x) (x).begin(), (x).end()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
-#define rsr reserve
+#define rsr(v,n) (v).reserve(n)
 #define pb push_back
 
 const int INF = 1e9;
@@ -24,7 +24,7 @@ int main()
     if (!(cin >> m >> n)) return 0;
 
     vector<pii> p;
-    p.rsr(9);
+    rsr(p, 9);
     rep(r, 0, 3)
     {
         str s;

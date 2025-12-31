@@ -10,7 +10,7 @@ typedef long long ll;
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
 #define epl emplace
-#define rsr reserve
+#define rsr(v,n) (v).reserve(n)
 #define mv move
 #define pb push_back
 
@@ -119,7 +119,7 @@ int main()
 
     int k = sz(vars);
     unordered_map<char, int> vidx;
-    vidx.rsr(k * 2 + 1);
+    rsr(vidx, k * 2 + 1);
     rep(i, 0, k) vidx[vars[i]] = i;
 
     int n = 1 << k;
@@ -137,9 +137,9 @@ int main()
     uint64_t target = ps.parse();
 
     unordered_map<uint64_t, string> repr;
-    repr.rsr(256);
+    rsr(repr, 256);
     vector<uint64_t> funcs;
-    funcs.rsr(256);
+    rsr(funcs, 256);
 
     rep(i, 0, k)
     {
@@ -169,7 +169,7 @@ int main()
                         const string& eb = repr[b];
                         const string& ec = repr[c];
                         string tmp;
-                        tmp.rsr(2 + ea.size() + eb.size() + ec.size());
+                        rsr(tmp, 2 + ea.size() + eb.size() + ec.size());
                         tmp.pb('<');
                         tmp += ea;
                         tmp += eb;

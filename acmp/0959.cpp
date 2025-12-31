@@ -6,7 +6,7 @@ using namespace std;
 
 #define all(x) (x).begin(), (x).end()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
-#define rsr reserve
+#define rsr(v,n) (v).reserve(n)
 #define pb push_back
 #define se second
 
@@ -67,7 +67,7 @@ int main()
                 for (int dir = -1; dir <= 1; dir += 2)
                 {
                     vector<pair<double, int>> ev;
-                    ev.rsr(n * 2);
+                    rsr(ev, n * 2);
 
                     rep(m, 0, n)
                     {

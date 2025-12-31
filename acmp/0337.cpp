@@ -9,7 +9,7 @@ typedef long long ll;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
-#define rsr reserve
+#define rsr(v,n) (v).reserve(n)
 #define pb push_back
 #define fi first
 #define se second
@@ -53,7 +53,7 @@ int main()
     if (!a.empty()) mysort(a.rbegin(), a.rend() - 1);
 
     vector<pair<ll, ll>> cur;
-    cur.rsr(100000);
+    rsr(cur, 100000);
 
     for (int x : a)
     {
@@ -79,7 +79,7 @@ int main()
         if (!cur.empty()) mysort(cur.begin(), cur.end() - 1);
 
         vector<pair<ll, ll>> nxt;
-        nxt.rsr(sz(cur));
+        rsr(nxt, sz(cur));
 
         for (const auto& p : cur)
         {
