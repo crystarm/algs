@@ -5,24 +5,21 @@
 using namespace std;
 
 typedef long long ll;
+typedef vector<int> vi;
 
 #define all(x) (x).begin(), (x).end()
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
-#define epl emplace
 #define rsr(v,n) (v).reserve(n)
-#define mv move
 #define pb push_back
-#define fi first
-#define se second
 
 const int MAXN = 100000 + 5;
 
 int n, k, r;
-vector<int> g[MAXN];
+vi g[MAXN];
 
 int tin[MAXN], tout[MAXN], depth[MAXN], timer_;
-vector<int> by_dep[MAXN];
+vi by_dep[MAXN];
 
 bool rm[MAXN];
 int sub[MAXN];
@@ -126,10 +123,8 @@ void solve(int u)
     }
 
     rm[c] = true;
-    for (int v : g[c])
-    {
-        if (!rm[v]) solve(v);
-    }
+    for (int v : g[c]) if (!rm[v]) solve(v);
+
 }
 
 int main()
@@ -147,11 +142,7 @@ int main()
         g[v].pb(u);
     }
 
-    if (k & 1)
-    {
-        cout << 0 << '\n';
-        return 0;
-    }
+    if (k & 1) { cout << 0 << '\n'; return 0; }
 
     r = k / 2;
 
@@ -170,11 +161,7 @@ int main()
             if (depth[v] > depth[u])
             {
                 int cur = cnt_sub(v, depth[u] + r);
-                if (cur > 0)
-                {
-                    a.pb(cur);
-                    sum += cur;
-                }
+                if (cur > 0) { a.pb(cur); sum += cur; }
             }
         }
 
