@@ -37,7 +37,7 @@ static bool is_prime(u64 n)
 {
     if (n < 2) return false;
 
-    static u64 small_primes[] = {2ULL,3ULL,5ULL,7ULL,11ULL,13ULL,17ULL,19ULL,23ULL,29ULL,31ULL,37ULL};
+    static u64 small_primes[] = {2ULL, 3ULL, 5ULL, 7ULL, 11ULL, 13ULL, 17ULL, 19ULL, 23ULL, 29ULL, 31ULL, 37ULL};
     for (u64 p : small_primes)
     {
         if (n == p) return true;
@@ -60,7 +60,7 @@ static bool is_prime(u64 n)
         return true;
     };
 
-    static u64 bases[] = {2ULL,3ULL,5ULL,7ULL,11ULL,13ULL,17ULL,19ULL,23ULL,29ULL,31ULL,37ULL};
+    static u64 bases[] = {2ULL, 3ULL, 5ULL, 7ULL, 11ULL, 13ULL, 17ULL, 19ULL, 23ULL, 29ULL, 31ULL, 37ULL};
     for (u64 a : bases)
     {
         if (a >= n) continue;

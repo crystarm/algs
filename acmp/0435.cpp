@@ -1,5 +1,5 @@
 // https://acmp.ru/index.asp?main=task&id_task=435
-// reachable-state enumeration + interning (dedup) + сhinese remainder theorem + subset sum + NFA -> DFA with subset construction + Miller–Rabin\
+// reachable-state enumeration + interning (dedup) + сhinese remainder theorem + subset sum + NFA -> DFA with subset construction + Miller–Rabin
 
 #include <bits/stdc++.h>
 using namespace std;
