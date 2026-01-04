@@ -1,153 +1,161 @@
 // https://coderun.yandex.ru/problem/qx-d
 // FSM + string parsing + data aggregation
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
-#include <algorithm>
-#include <limits>
-#include <cctype>
+#include <bits/stdc++.h>
+using namespace std;
 
-std::string json_content;
-size_t pos = 0;
+typedef long long ll;
+typedef string str;
 
-void skip_whitespace()
-{ while (pos < json_content.size() && std::isspace(static_cast<unsigned char>(json_content[pos]))) pos++; }
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
+#define fi first
+#define se second
 
-std::string parse_string()
+const int INF = (int)1e9;
+const ll LINF = (ll)4e18;
+
+str s;
+int p;
+
+void skip_ws()
 {
-    std::string result;
-    if (pos >= json_content.size() || json_content[pos] != '"') return "";
-    pos++;
+    while (p < sz(s) && isspace((unsigned char)s[p])) p++;
+}
 
-    while (pos < json_content.size())
+str parse_str()
+{
+    str r;
+    if (p >= sz(s) || s[p] != '"') return r;
+    p++;
+    while (p < sz(s))
     {
-        char c = json_content[pos];
-        if (c == '"') { pos++; return result; }
+        char c = s[p++];
+        if (c == '"') return r;
         if (c == '\\')
         {
-            pos++;
-            if (pos < json_content.size())
-            { result += json_content[pos]; pos++; }
-        } else {result += c; pos++; }
+            if (p < sz(s)) r += s[p++];
+        }
+        else r += c;
     }
-    return result;
+    return r;
 }
 
 int parse_int()
 {
-    skip_whitespace();
-    size_t start = pos;
-    if (pos < json_content.size() && json_content[pos] == '-') pos++;
-
-    while (pos < json_content.size() && std::isdigit(static_cast<unsigned char>(json_content[pos]))) pos++;
-
-    if (start == pos) return 0;
-
-    try
-    { return std::stoi(json_content.substr(start, pos - start)); }
-    catch (...) { return 0; }
+    skip_ws();
+    int sign = 1;
+    if (p < sz(s) && s[p] == '-') { sign = -1; p++; }
+    ll x = 0;
+    bool ok = false;
+    while (p < sz(s) && isdigit((unsigned char)s[p]))
+    {
+        ok = true;
+        x = x * 10 + (s[p] - '0');
+        p++;
+    }
+    if (!ok) return 0;
+    x *= sign;
+    if (x < (ll)INT_MIN) return INT_MIN;
+    if (x > (ll)INT_MAX) return INT_MAX;
+    return (int)x;
 }
 
-void skip_value()
+void skip_val()
 {
-    skip_whitespace();
-    if (pos >= json_content.size()) return;
-
-    char c = json_content[pos];
-    if (c == '"') parse_string();
-    else if (std::isdigit(static_cast<unsigned char>(c)) || c == '-') parse_int();
-    else if (c == '{')
+    skip_ws();
+    if (p >= sz(s)) return;
+    char c = s[p];
+    if (c == '"') { parse_str(); return; }
+    if (c == '-' || isdigit((unsigned char)c)) { parse_int(); return; }
+    if (c == '{' || c == '[')
     {
-        int balance = 1;
-        pos++;
-        while (pos < json_content.size() && balance > 0)
+        char open = c;
+        char close = (c == '{' ? '}' : ']');
+        int bal = 1;
+        p++;
+        while (p < sz(s) && bal > 0)
         {
-            if (json_content[pos] == '{') balance++;
-            if (json_content[pos] == '}') balance--;
-            pos++;
+            if (s[p] == open) bal++;
+            if (s[p] == close) bal--;
+            p++;
         }
+        return;
     }
-    else while (pos < json_content.size() && json_content[pos] != ',' && json_content[pos] != '}') pos++;
+    while (p < sz(s) && s[p] != ',' && s[p] != '}' && s[p] != ']') p++;
 }
 
 int main()
 {
-    std::ios_base::sync_with_stdio(0);
-    std::cin.tie(0);
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    std::ifstream file("data.json");
-    if (!file.is_open()) return 1;
+    ifstream fin("data.json");
+    if (!fin.is_open()) return 1;
 
-    file.seekg(0, std::ios::end);
-    json_content.reserve(file.tellg());
-    file.seekg(0, std::ios::beg);
+    fin.seekg(0, ios::end);
+    s.reserve((size_t)fin.tellg());
+    fin.seekg(0, ios::beg);
+    s.assign((istreambuf_iterator<char>(fin)), istreambuf_iterator<char>());
 
-    json_content.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    map<str, int> mp;
 
-    std::map<std::string, int> date_max_counts;
+    p = 0;
+    skip_ws();
+    if (p < sz(s) && s[p] == '[') p++;
 
-    pos = 0;
-    skip_whitespace();
-
-    if (pos < json_content.size() && json_content[pos] == '[') pos++;
-
-    while (pos < json_content.size())
+    while (p < sz(s))
     {
-        skip_whitespace();
-        if (json_content[pos] == ']') break;
+        skip_ws();
+        if (p >= sz(s) || s[p] == ']') break;
 
-        if (json_content[pos] == '{')
+        if (s[p] == '{')
         {
-            pos++;
+            p++;
 
-            std::string current_date;
-            int current_count = -1;
-            bool has_date = false;
-            bool has_count = false;
+            str cur;
+            int val = -1;
+            bool okd = false, okc = false;
 
-            while (pos < json_content.size())
+            while (p < sz(s))
             {
-                skip_whitespace();
-                if (json_content[pos] == '}') { pos++; break; }
+                skip_ws();
+                if (p < sz(s) && s[p] == '}') { p++; break; }
 
-                std::string key = parse_string();
+                str key = parse_str();
 
-                skip_whitespace();
-                if (json_content[pos] == ':') pos++;
+                skip_ws();
+                if (p < sz(s) && s[p] == ':') p++;
+                skip_ws();
 
-                skip_whitespace();
+                if (key == "date") { cur = parse_str(); okd = true; }
+                else if (key == "count") { val = parse_int(); okc = true; }
+                else skip_val();
 
-                if (key == "date") { current_date = parse_string(); has_date = true; }
-                else if (key == "count") { current_count = parse_int(); has_count = true; }
-                else skip_value();
-
-
-                skip_whitespace();
-                if (json_content[pos] == ',') pos++;
+                skip_ws();
+                if (p < sz(s) && s[p] == ',') p++;
             }
 
-            if (has_date && has_count)
+            if (okd && okc)
             {
-                if (date_max_counts.find(current_date) == date_max_counts.end())
-                { date_max_counts[current_date] = current_count; }
-                else date_max_counts[current_date] = std::max(date_max_counts[current_date], current_count);
+                auto it = mp.find(cur);
+                if (it == mp.end()) mp[cur] = val;
+                else it->se = max(it->se, val);
             }
-        } else pos++;
+        }
+        else p++;
 
-        skip_whitespace();
-        if (json_content[pos] == ',') pos++;
+        skip_ws();
+        if (p < sz(s) && s[p] == ',') p++;
     }
 
-    if (date_max_counts.empty()) return 0;
+    if (mp.empty()) return 0;
 
-    int min_of_maxes = std::numeric_limits<int>::max();
-
-    for (const auto& [date, max_val] : date_max_counts) if (max_val < min_of_maxes) min_of_maxes = max_val;
-    for (const auto& [date, max_val] : date_max_counts) if (max_val == min_of_maxes) std::cout << date << "\n";
-
+    int mn = INT_MAX;
+    for (auto &it : mp) if (it.se < mn) mn = it.se;
+    for (auto &it : mp) if (it.se == mn) cout << it.fi << '\n';
 
     return 0;
 }

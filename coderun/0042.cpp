@@ -1,51 +1,51 @@
 // https://coderun.yandex.ru/problem/mugs
 // topological sort
 
-#include <iostream>
-#include <vector>
-#include <queue>
+#include <bits/stdc++.h>
+using namespace std;
 
-int main() {
-    std::ios_base::sync_with_stdio(0);
-    std::cin.tie(0);
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+#define pb push_back
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
     int n;
-    if (!(std::cin >> n)) return 0;
+    if (!(cin >> n)) return 0;
 
-    std::vector<std::vector<int>> adj(n + 1);
-    std::vector<int> deg(n + 1, 0);
+    vector<vector<int>> g(n + 1);
+    vector<int> deg(n + 1, 0);
 
-    for (int i = 1; i <= n; ++i)
+    rep(i, 1, n + 1)
     {
         int k;
-        std::cin >> k;
-        adj[i].reserve(k);
-        for (int j = 0; j < k; ++j)
+        cin >> k;
+        g[i].reserve(k);
+        rep(j, 0, k)
         {
-            int p;
-            std::cin >> p;
-            adj[i].push_back(p);
-            deg[p]++;
+            int v;
+            cin >> v;
+            g[i].pb(v);
+            deg[v]++;
         }
     }
 
-    std::priority_queue<int> pq;
+    priority_queue<int> q;
+    rep(i, 1, n + 1) if (deg[i] == 0) q.push(i);
 
-    for (int i = 1; i <= n; ++i) if (deg[i] == 0) pq.push(i);
+    vector<int> ans;
+    ans.reserve(n);
 
-
-    std::vector<int> res;
-    res.reserve(n);
-
-    while (!pq.empty())
+    while (!q.empty())
     {
-        int u = pq.top();
-        pq.pop();
-        res.push_back(u);
-
-        for (int v : adj[u]) if (--deg[v] == 0) pq.push(v);
+        int u = q.top();
+        q.pop();
+        ans.pb(u);
+        for (int v : g[u]) if (--deg[v] == 0) q.push(v);
     }
-    for (int i = n - 1; i >= 0; --i)
-        std::cout << res[i] << (i == 0 ? '\n' : ' ');
+
+    for (int i = n - 1; i >= 0; --i) cout << ans[i] << (i ? ' ' : '\n');
     return 0;
 }

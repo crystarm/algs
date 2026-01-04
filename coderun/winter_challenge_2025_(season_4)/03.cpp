@@ -3,14 +3,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const long long MOD = 1000000007LL;
+typedef long long ll;
 
-long long calc(long long level, const vector<long long> &w)
+#define sz(x) (int)(x).size()
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
+
+const ll MOD = 1000000007LL;
+
+static inline ll calc(ll level, const vector<ll>& a)
 {
-    long long s = 0;
-    int n = (int) w.size();
-    for (int i = 0; i < n; ++i) { if (w[i] >= level) s += level; else s += w[i]; }
-    return s;
+    ll sum = 0;
+    int n = sz(a);
+    rep(i, 0, n) sum += (a[i] >= level ? level : a[i]);
+    return sum;
 }
 
 int main()
@@ -18,49 +23,46 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    long long m;
+    ll m;
     int n;
     if (!(cin >> m >> n)) return 0;
 
-    vector<long long> w(n);
-    long long sum = 0;
-    long long maxw = 0;
+    vector<ll> a(n);
+    ll sum = 0;
+    ll mx = 0;
 
-    for (int i = 0; i < n; ++i)
+    rep(i, 0, n)
     {
-        cin >> w[i];
-        sum += w[i];
-        if (w[i] > maxw) maxw = w[i];
+        cin >> a[i];
+        sum += a[i];
+        mx = max(mx, a[i]);
     }
 
-    long long s = sum - m;
-	long long lo = 0;
-    long long hi = maxw;
-    long long L = 0;
+    ll need = sum - m;
 
+    ll lo = 0, hi = mx, lvl = 0;
     while (lo <= hi)
     {
-        long long mid = (lo + hi) / 2;
-        if (calc(mid, w) <= s) { L = mid; lo = mid + 1; }
-        else { hi = mid - 1; }
+        ll mid = (lo + hi) / 2;
+        if (calc(mid, a) <= need) { lvl = mid; lo = mid + 1; }
+        else hi = mid - 1;
     }
 
-    long long used = calc(L, w);
-    long long extra = s - used;
+    ll used = calc(lvl, a);
+    ll extra = need - used;
 
-    long long ans = 0;
-
-    for (int i = 0; i < n; ++i)
+    ll ans = 0;
+    rep(i, 0, n)
     {
-        long long d;
-        if (w[i] <= L) d = w[i];
+        ll cur;
+        if (a[i] <= lvl) cur = a[i];
         else
         {
-            if (w[i] >= L + 1 && extra > 0) { d = L + 1; --extra; }
-            else d = L;
+            if (extra > 0) { cur = lvl + 1; --extra; }
+            else cur = lvl;
         }
 
-        long long t = d % MOD;
+        ll t = cur % MOD;
         ans = (ans + t * t) % MOD;
     }
 

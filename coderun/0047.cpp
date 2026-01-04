@@ -1,60 +1,111 @@
 // https://coderun.yandex.ru/problem/stalker
 // BFS or smth
 
-#include <cstdio>
-#include <cstring>
+#include <bits/stdc++.h>
+using namespace std;
 
-const int N = 100005;
-const int M = 2000005;
+#define rep(i,a,b) for (int i = (a); i < (b); ++i)
 
-int ri()
+const int MAXN = 100000 + 5;
+const int MAXM = 2000005;
+
+struct FS
 {
-    int x = 0, c = getchar();
-    while (c < 48 || c > 57) { if (c == EOF) return 0; c = getchar(); }
-    while (c >= 48 && c <= 57) x = x * 10 + c - 48, c = getchar();
-    return x;
+    static const int S = 1 << 20;
+    int i = 0, n = 0;
+    char b[S];
+
+    inline char gc()
+    {
+        if (i >= n)
+        {
+            n = (int)fread(b, 1, S, stdin);
+            i = 0;
+            if (!n) return 0;
+        }
+        return b[i++];
+    }
+
+    int ri()
+    {
+        int x = 0;
+        char c = gc();
+        while (c && (c < '0' || c > '9')) c = gc();
+        while (c && c >= '0' && c <= '9')
+        {
+            x = x * 10 + (c - '0');
+            c = gc();
+        }
+        return x;
+    }
+};
+
+int h_tmp[MAXN], nxt_tmp[MAXM], to_tmp[MAXM], e_tmp;
+
+int h_c[MAXM], nxt_c[MAXM], v_c[MAXM], e_c;
+
+int h_u[MAXN], nxt_u[MAXM], v_u[MAXM], e_u;
+
+int buf[MAXM], bc;
+int vis[MAXN], vid;
+
+int q[MAXM];
+int dist_[MAXN];
+bool used[MAXM];
+
+static inline void add_tmp(int u, int v)
+{
+    to_tmp[e_tmp] = v;
+    nxt_tmp[e_tmp] = h_tmp[u];
+    h_tmp[u] = e_tmp++;
 }
 
-int h1[N], n1[M], t1[M], e1;
-int h2[M], n2[M], v2[M], e2;
-int h3[N], n3[M], v3[M], e3;
+static inline void add_c(int c, int u)
+{
+    v_c[e_c] = u;
+    nxt_c[e_c] = h_c[c];
+    h_c[c] = e_c++;
+}
 
-int buf[M], bc;
-int vis[N], vid;
-
-int q[M], d[N];
-bool used[M];
-
-void add1(int u, int v) { t1[e1] = v; n1[e1] = h1[u]; h1[u] = e1++; }
-
-void add2(int c, int u) { v2[e2] = u; n2[e2] = h2[c]; h2[c] = e2++; }
-
-void add3(int u, int c) { v3[e3] = c; n3[e3] = h3[u]; h3[u] = e3++; }
+static inline void add_u(int u, int c)
+{
+    v_u[e_u] = c;
+    nxt_u[e_u] = h_u[u];
+    h_u[u] = e_u++;
+}
 
 int main()
 {
-    memset(h1, -1, sizeof(h1));
-    memset(h2, -1, sizeof(h2));
-    memset(h3, -1, sizeof(h3));
-    memset(d, -1, sizeof(d));
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-    int n = ri(), k = ri();
+    FS fs;
+
+    memset(h_tmp, -1, sizeof(h_tmp));
+    memset(h_c, -1, sizeof(h_c));
+    memset(h_u, -1, sizeof(h_u));
+    memset(dist_, -1, sizeof(dist_));
+
+    int n = fs.ri(), k = fs.ri();
     int cid = 0;
 
     while (k--)
     {
-        int r = ri();
-        e1 = 0; bc = 0;
+        int r = fs.ri();
+        e_tmp = 0;
+        bc = 0;
 
         while (r--)
         {
-            int u = ri(), v = ri();
-            buf[bc++] = u; buf[bc++] = v;
-            add1(u, v); add1(v, u);
+            int u = fs.ri(), v = fs.ri();
+            buf[bc++] = u;
+            buf[bc++] = v;
+            add_tmp(u, v);
+            add_tmp(v, u);
         }
 
         vid++;
-        for (int i = 0; i < bc; ++i)
+        rep(i, 0, bc)
         {
             int s = buf[i];
             if (vis[s] == vid) continue;
@@ -64,48 +115,56 @@ int main()
 
             vis[s] = vid;
             q[qt++] = s;
-            add2(c, s); add3(s, c);
+            add_c(c, s);
+            add_u(s, c);
 
             while (qh < qt)
             {
                 int u = q[qh++];
-                for (int e = h1[u]; ~e; e = n1[e])
-                {   int v = t1[e];
+                for (int e = h_tmp[u]; e != -1; e = nxt_tmp[e])
+                {
+                    int v = to_tmp[e];
                     if (vis[v] != vid)
                     {
                         vis[v] = vid;
                         q[qt++] = v;
-                        add2(c, v); add3(v, c);
+                        add_c(c, v);
+                        add_u(v, c);
                     }
                 }
             }
         }
 
-        for (int i = 0; i < bc; ++i) h1[buf[i]] = -1;
+        rep(i, 0, bc) h_tmp[buf[i]] = -1;
     }
 
     int qh = 0, qt = 0;
-    d[1] = 0;
+    dist_[1] = 0;
     q[qt++] = 1;
 
-    while (qh < qt) {
+    while (qh < qt)
+    {
         int u = q[qh++];
-        if (u == n) { printf("%d\n", d[n]); return 0; }
+        if (u == n) break;
 
-        for (int e = h3[u]; ~e; e = n3[e])
+        for (int e = h_u[u]; e != -1; e = nxt_u[e])
         {
-            int c = v3[e];
+            int c = v_u[e];
             if (used[c]) continue;
-            used[c] = 1;
+            used[c] = true;
 
-            for (int j = h2[c]; ~j; j = n2[j])
+            for (int j = h_c[c]; j != -1; j = nxt_c[j])
             {
-                int v = v2[j];
-                if (d[v] == -1) { d[v] = d[u] + 1; q[qt++] = v; }
+                int v = v_c[j];
+                if (dist_[v] == -1)
+                {
+                    dist_[v] = dist_[u] + 1;
+                    q[qt++] = v;
+                }
             }
         }
     }
 
-    printf("%d\n", d[n]);
+    cout << dist_[n] << '\n';
     return 0;
 }
