@@ -1,5 +1,5 @@
-//
-//
+// https://chatgpt.com/c/695d06ee-dcdc-8327-86d4-38535c91054b
+// encoding + endianness + bit prefixes
 
 #include <stdio.h>
 #include <stdlib.h>
