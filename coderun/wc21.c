@@ -1,3 +1,4 @@
+// https://coderun.yandex.ru/selections/2025-winter-common/problems/energy-strike
 // computational geometry + enumeration backtracking
 
 #include <stdio.h>
