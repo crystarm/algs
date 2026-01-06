@@ -1,99 +1,125 @@
 // https://coderun.yandex.ru/problem/cafe
 // dynamic
+
 #include <stdio.h>
 
-#define MAXN 100
-#define INF 1000000000
+#ifndef getchar_unlocked
+#define getchar_unlocked getchar
+#endif
+
+#define rep(i,a,b) for (int i = (a); i <= (b); ++i)
+
+static inline int read_int()
+{
+    int c = getchar_unlocked();
+    while (c != '-' && (c < '0' || c > '9'))
+    {
+        if (c == EOF) return 0;
+        c = getchar_unlocked();
+    }
+
+    int s = 1;
+    if (c == '-')
+    {
+        s = -1;
+        c = getchar_unlocked();
+    }
+
+    int x = 0;
+    while (c >= '0' && c <= '9')
+    {
+        x = x * 10 + (c - '0');
+        c = getchar_unlocked();
+    }
+
+    return x * s;
+}
+
+const int MAXN = 100;
+const int INF = 1000000000;
 
 static int dp[MAXN + 1][MAXN + 1];
-static int prev_j[MAXN + 1][MAXN + 1];
-static char used[MAXN + 1][MAXN + 1];
-static int cost[MAXN + 1];
+static int prv[MAXN + 1][MAXN + 1];
+static unsigned char use[MAXN + 1][MAXN + 1];
+
+static int a[MAXN + 1];
 static int days[MAXN + 1];
 
-int main(void)
+int main()
 {
-    int n;
-    int i, j;
+    int n = read_int();
+    if (n <= 0) return 0;
 
-    if (scanf("%d", &n) != 1) return 0;
+    rep(i,1,n) a[i] = read_int();
 
-
-    for (i = 1; i <= n; i++) scanf("%d", &cost[i]);
-
-    for (i = 0; i <= n; i++)
+    rep(i,0,n) rep(j,0,n)
     {
-        for (j = 0; j <= n; j++)
-        {
-            dp[i][j] = INF;
-            prev_j[i][j] = -1;
-            used[i][j] = 0;
-        }
+        dp[i][j] = INF;
+        prv[i][j] = -1;
+        use[i][j] = 0;
     }
 
     dp[0][0] = 0;
 
-    for (i = 1; i <= n; i++)
+    rep(i,1,n)
     {
-        for (j = 0; j <= n; j++)
+        rep(j,0,n)
         {
-            if (dp[i - 1][j] < INF)
+            if (dp[i - 1][j] >= INF) continue;
+
+            int j2 = j + (a[i] > 100);
+            if (j2 <= n)
             {
-                int j2;
-                int val;
-
-                j2 = j + (cost[i] > 100 ? 1 : 0);
-                if (j2 <= n)
+                int val = dp[i - 1][j] + a[i];
+                if (val < dp[i][j2])
                 {
-                    val = dp[i - 1][j] + cost[i];
-                    if (val < dp[i][j2])
-                    {
-                        dp[i][j2] = val;
-                        prev_j[i][j2] = j;
-                        used[i][j2] = 0;
-                    }
+                    dp[i][j2] = val;
+                    prv[i][j2] = j;
+                    use[i][j2] = 0;
                 }
+            }
 
-                if (j > 0)
+            if (j > 0)
+            {
+                j2 = j - 1;
+                int val = dp[i - 1][j];
+                if (val < dp[i][j2])
                 {
-                    j2 = j - 1;
-                    val = dp[i - 1][j];
-                    if (val < dp[i][j2])
-                    {
-                        dp[i][j2] = val;
-                        prev_j[i][j2] = j;
-                        used[i][j2] = 1;
-                    }
+                    dp[i][j2] = val;
+                    prv[i][j2] = j;
+                    use[i][j2] = 1;
                 }
             }
         }
     }
 
-    int min_cost = INF;
-    int best_coupons = 0;
+    int best_cost = INF;
+    int best_c = 0;
 
-    for (j = 0; j <= n; j++)
+    rep(j,0,n)
     {
-        if (dp[n][j] < min_cost || (dp[n][j] == min_cost && j > best_coupons))
-        { min_cost = dp[n][j]; best_coupons = j; }
+        if (dp[n][j] < best_cost || (dp[n][j] == best_cost && j > best_c))
+        {
+            best_cost = dp[n][j];
+            best_c = j;
+        }
     }
 
-    printf("%d\n", min_cost);
+    printf("%d\n", best_cost);
 
-    int k2 = 0;
-    i = n;
-    j = best_coupons;
+    int k = 0;
+    int i = n;
+    int j = best_c;
 
     while (i > 0)
     {
-        if (used[i][j]) days[k2++] = i;
-        j = prev_j[i][j];
-        i--;
+        if (use[i][j]) days[k++] = i;
+        j = prv[i][j];
+        --i;
     }
 
-    printf("%d %d\n", best_coupons, k2);
-
-    for (i = k2 - 1; i >= 0; i--) { printf("%d\n", days[i]); }
+    printf("%d %d\n", best_c, k);
+    for (int t = k - 1; t >= 0; --t) printf("%d\n", days[t]);
 
     return 0;
 }

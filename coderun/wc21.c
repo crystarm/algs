@@ -3,163 +3,145 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <stdbool.h>
 
-#define MAXN 12
-#define MAX_CAND 400
-#define EPS_COVER 1e-9
-#define EPS_DIST 1e-9
+#define rep(i,a,b) for (int i = (a); i <= (b); ++i)
 
-typedef struct { double x, y; } Point;
+const int MAXN = 12;
+const int MAXC = 400;
 
-Point pts[MAXN];
-Point cands[MAX_CAND];
-int cands_mask[MAX_CAND];
-int n, c_cnt;
+const double EPS_COVER = 1e-9;
+const double EPS_DIST = 1e-9;
 
-bool conflict[MAX_CAND][MAX_CAND];
+struct pt { double x; double y; };
 
-int res_idx[MAXN];
-int res_n;
-bool found;
+static struct pt p[MAXN];
+static struct pt c[MAXC];
+static int msk[MAXC];
+static unsigned char bad[MAXC][MAXC];
 
-inline double dist_sq(Point a, Point b) { return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y); }
+static int n;
+static int cn;
 
-void add_cand(double x, double y)
+static int pick[MAXN];
+static int pick_n;
+static unsigned char ok;
+
+static inline double dsq(struct pt a, struct pt b)
 {
-    if (c_cnt >= MAX_CAND) return;
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    return dx * dx + dy * dy;
+}
 
-    Point p = {x, y};
+static void add(double x, double y)
+{
+    if (cn >= MAXC) return;
+
+    struct pt q;
+    q.x = x;
+    q.y = y;
+
     int m = 0;
+    double lim = 1.0 + EPS_COVER;
 
-    double r_sq_limit = 1.0 + EPS_COVER;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (dist_sq(p, pts[i]) <= r_sq_limit)
-        {
-            m |= (1 << i);
-        }
-    }
+    rep(i,0,n - 1) if (dsq(q, p[i]) <= lim) m |= (1 << i);
 
     if (m == 0) return;
 
-    for (int i = 0; i < c_cnt; i++)
-    {
-        if (cands_mask[i] == m && dist_sq(cands[i], p) < 1e-10) return;
-    }
+    rep(i,0,cn - 1) if (msk[i] == m && dsq(c[i], q) < 1e-10) return;
 
-    cands[c_cnt] = p;
-    cands_mask[c_cnt] = m;
-    c_cnt++;
+    c[cn] = q;
+    msk[cn] = m;
+    ++cn;
 }
 
-void backtrack(int current_mask, int count)
+static void bt(int cur, int cnt)
 {
-    if (found) return;
+    if (ok) return;
+    if (cur == (1 << n) - 1)
+    { pick_n = cnt; ok = 1; return; }
 
-    if (current_mask == (1 << n) - 1)
+    unsigned int need = ((1U << n) - 1U) & (unsigned int)(~cur);
+    int bit = __builtin_ctz(need);
+
+    rep(i,0,cn - 1)
     {
-        res_n = count;
-        found = true;
-        return;
-    }
+        if (!((msk[i] >> bit) & 1)) continue;
 
-    int bit = __builtin_ctz(~current_mask);
+        unsigned char good = 1;
+        rep(j,0,cnt - 1) if (bad[i][pick[j]]) { good = 0; break; }
 
-    for (int i = 0; i < c_cnt; i++) {
-        if (!((cands_mask[i] >> bit) & 1)) continue;
-
-        bool ok = true;
-        for (int j = 0; j < count; j++)
+        if (good)
         {
-            if (conflict[i][res_idx[j]])
-            {
-                ok = false;
-                break;
-            }
-        }
-
-        if (ok)
-        {
-            res_idx[count] = i;
-            backtrack(current_mask | cands_mask[i], count + 1);
-            if (found) return;
+            pick[cnt] = i;
+            bt(cur | msk[i], cnt + 1);
+            if (ok) return;
         }
     }
 }
 
-void solve()
+static void solve()
 {
     if (scanf("%d", &n) != 1) return;
-    for (int i = 0; i < n; i++) { scanf("%lf %lf", &pts[i].x, &pts[i].y); }
+    rep(i,0,n - 1) scanf("%lf %lf", &p[i].x, &p[i].y);
 
-    c_cnt = 0;
-    found = false;
+    cn = 0;
+    ok = 0;
 
-    for (int i = 0; i < n; i++)
+    rep(i,0,n - 1)
     {
-        add_cand(pts[i].x, pts[i].y);
-        add_cand(floor(pts[i].x), floor(pts[i].y));
-        add_cand(ceil(pts[i].x), floor(pts[i].y));
-        add_cand(floor(pts[i].x), ceil(pts[i].y));
-        add_cand(ceil(pts[i].x), ceil(pts[i].y));
+        add(p[i].x, p[i].y);
+        add(floor(p[i].x), floor(p[i].y));
+        add(ceil(p[i].x), floor(p[i].y));
+        add(floor(p[i].x), ceil(p[i].y));
+        add(ceil(p[i].x), ceil(p[i].y));
     }
 
-    for (int i = 0; i < n; i++)
+    rep(i,0,n - 1) rep(j,i + 1,n - 1)
     {
-        for (int j = i + 1; j < n; j++)
+        double d2 = dsq(p[i], p[j]);
+        if (d2 > 4.0 + EPS_DIST) continue;
+
+        add((p[i].x + p[j].x) / 2.0, (p[i].y + p[j].y) / 2.0);
+
+        double d = sqrt(d2);
+        if (d > 1e-9)
         {
-            double d2 = dist_sq(pts[i], pts[j]);
-            if (d2 > 4.0 + EPS_DIST) continue;
+            double h2 = 1.0 - d2 / 4.0;
+            double h = (h2 > 0.0) ? sqrt(h2) : 0.0;
 
-            add_cand((pts[i].x + pts[j].x) / 2.0, (pts[i].y + pts[j].y) / 2.0);
+            double mx = (p[i].x + p[j].x) / 2.0;
+            double my = (p[i].y + p[j].y) / 2.0;
 
-            double d = sqrt(d2);
-            if (d > 1e-9)
-            {
-                double h_sq = 1.0 - d2 / 4.0;
-                double h = (h_sq > 0) ? sqrt(h_sq) : 0.0;
+            double dx = h * (p[i].y - p[j].y) / d;
+            double dy = h * (p[j].x - p[i].x) / d;
 
-                double mx = (pts[i].x + pts[j].x) / 2.0;
-                double my = (pts[i].y + pts[j].y) / 2.0;
-
-                double dx_h = h * (pts[i].y - pts[j].y) / d;
-                double dy_h = h * (pts[j].x - pts[i].x) / d;
-
-                add_cand(mx + dx_h, my + dy_h);
-                add_cand(mx - dx_h, my - dy_h);
-            }
+            add(mx + dx, my + dy);
+            add(mx - dx, my - dy);
         }
     }
 
-    double dist_limit = 4.0 - 1e-9;
-
-    for (int i = 0; i < c_cnt; i++)
+    double lim = 4.0 - 1e-9;
+    rep(i,0,cn - 1) rep(j,i,cn - 1)
     {
-        for (int j = i; j < c_cnt; j++)
-        {
-            bool bad = (dist_sq(cands[i], cands[j]) < dist_limit);
-            conflict[i][j] = bad;
-            conflict[j][i] = bad;
-        }
+        unsigned char x = (dsq(c[i], c[j]) < lim);
+        bad[i][j] = x;
+        bad[j][i] = x;
     }
 
-    backtrack(0, 0);
+    bt(0, 0);
 
-    if (found)
+    if (ok)
     {
-        printf("YES\n%d\n", res_n);
-        for (int i = 0; i < res_n; i++)
-        {
-            printf("%.10f %.10f\n", cands[res_idx[i]].x, cands[res_idx[i]].y);
-        }
-    } else { printf("NO\n"); }
+        printf("YES\n%d\n", pick_n);
+        rep(i,0,pick_n - 1) printf("%.10f %.10f\n", c[pick[i]].x, c[pick[i]].y);
+    } else printf("NO\n");
 }
 
 int main()
 {
-    int t;
-    if (scanf("%d", &t) == 1) { while (t--) { solve(); } }
+    int T;
+    if (scanf("%d", &T) != 1) return 0;
+    while (T--) solve();
     return 0;
 }
