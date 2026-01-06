@@ -5,13 +5,14 @@
 using namespace std;
 
 typedef long long ll;
+typedef vector<ll> vll
 
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
 
 const ll MOD = 1000000007LL;
 
-static inline ll calc(ll level, const vector<ll>& a)
+static inline ll calc(ll level, const vll& a)
 {
     ll sum = 0;
     int n = sz(a);
@@ -28,7 +29,7 @@ int main()
     int n;
     if (!(cin >> m >> n)) return 0;
 
-    vector<ll> a(n);
+    vll a(n);
     ll sum = 0;
     ll mx = 0;
 
