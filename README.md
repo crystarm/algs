@@ -1,6 +1,6 @@
-## Important note on usage
+## Note on usage
 
-I draw your attention! No license is provided; all rights reserved. That means the code here is protected by default copyright rules: you may read it, study it, and use it as a reference, but **direct copying / reuse of complete solutions is extremely unacceptable**. It's a matter of ethics.
+Important! No license is provided; all rights reserved. That means the code here is protected by default copyright rules: you may read it, study it, and use it as a reference, but **direct copying / reuse of complete solutions is extremely unacceptable**. It's a matter of ethics.
 It’s published **for learning and reference only**, also as a showcase of my approach, not a bundle of copy-paste ready answers.
 
 This is **not** a solution graveyard. I only add solutions that I consider **highly above average or hard in difficulty** or personally interesting, i.e. things that taught me something non-trivial.
@@ -11,7 +11,7 @@ Here are the most notable solutions:
 
 ### ACMP
 
-- **0435** - reachable-state enumeration + interning (dedup) + Chinese remainder theorem + subset sum + NFA → DFA (subset construction) + Miller–Rabin primality test.  
+- **0435** - reachable-state enumeration + interning (dedup) + Chinese remainder theorem + subset sum + NFA -> DFA (subset construction) + Miller-Rabin primality test.  
   ([solution](acmp/0435.cpp) · [statement](https://acmp.ru/index.asp?main=task&id_task=435))
 
 - **0932** - centroid decomposition + combinatorics (counting/aggregation over a tree with centroid splits).  
@@ -47,6 +47,6 @@ Here are the most notable solutions:
 
 As you might have guessed, most of the problems in this repository come from two major Russian competitive programming training platforms:
 
-- [**ACMP**](https://acmp.ru/) - is a long-running Russian online judge with a huge archive of problems and automatic judging. The catalog is very mixed: alongside solid “classic” tasks, there are plenty of quirky / non-standard problems — sometimes with unusual constraints, odd formulations, or “trashiness” in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by Sergey N. Belyaev (listed as the author/admin in ACMP materials) and is associated with the Krasnoyarsk Krai Palace of Pioneers and Schoolchildren.
+- [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky / non-standard problems - sometimes with unusual constraints, odd formulations, or trashiness in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by Sergey N. Belyaev (listed as the author/admin in ACMP materials) and is associated with the Krasnoyarsk Krai Palace of Pioneers and Schoolchildren.
 
 - [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by Yandex LLC (ООО «Яндекс»).
