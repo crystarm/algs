@@ -5,7 +5,7 @@
 using namespace std;
 
 typedef long long ll;
-typedef vector<ll> vll
+typedef vector<ll> vll;
 
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
