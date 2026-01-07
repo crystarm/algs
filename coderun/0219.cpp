@@ -1,3 +1,6 @@
+// https://coderun.yandex.ru/problem/adventure-time
+// greedy + running minimum (prefix minimum) + single pass
+
 #include <bits/stdc++.h>
 using namespace std;
 

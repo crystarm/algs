@@ -6,8 +6,8 @@
 
 #define rep(i,a,b) for (int i = (a); i <= (b); ++i)
 
-const int MAXN = 12;
-const int MAXC = 400;
+#define MAXN 12
+#define MAXC 400
 
 const double EPS_COVER = 1e-9;
 const double EPS_DIST = 1e-9;

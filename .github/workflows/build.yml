@@ -79,7 +79,7 @@ jobs:
           while IFS= read -r -d '' f; do
             out="build_ci/$(echo "$f" | sed 's|^\./||; s|/|__|g; s|\.c$||')"
             echo "C: $f -> $out"
-            "$CC" -std=c11 -O2 -pipe "$f" -o "$out"
+            "$CC" -std=c11 -O2 -pipe "$f" -o "$out" -lm
           done < <(find . -type f -name '*.c' -print0)
 
       - name: C# compile check (Mono)
