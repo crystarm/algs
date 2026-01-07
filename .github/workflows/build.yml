@@ -18,45 +18,37 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install base deps
+        shell: sh
         run: |
-          set -euo pipefail
+          set -eu
           apt-get update
           apt-get install -y --no-install-recommends \
+            bash \
             ca-certificates git findutils sed coreutils \
             build-essential \
             wget gnupg lsb-release
 
       - name: Install LLVM/Clang (optionally pinned)
+        shell: bash
         run: |
           set -euo pipefail
 
-          if [ -n "${CLANG_VER}" ]; then
-            # apt.llvm.org for specific clang version
+          if [[ -n "${CLANG_VER}" ]]; then
             wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
             chmod +x /tmp/llvm.sh
-
-            # llvm.sh sometimes needs a second pass with fresh apt cache on some setups,
-            # so we do a simple fallback.
             /tmp/llvm.sh "${CLANG_VER}" || (apt-get update && /tmp/llvm.sh "${CLANG_VER}")
 
-            export CC="clang-${CLANG_VER}"
-            export CXX="clang++-${CLANG_VER}"
+            echo "CC=clang-${CLANG_VER}" >> "$GITHUB_ENV"
+            echo "CXX=clang++-${CLANG_VER}" >> "$GITHUB_ENV"
           else
             apt-get update
             apt-get install -y --no-install-recommends clang
-            export CC="clang"
-            export CXX="clang++"
+            echo "CC=clang" >> "$GITHUB_ENV"
+            echo "CXX=clang++" >> "$GITHUB_ENV"
           fi
 
-          echo "CC=$CC"
-          echo "CXX=$CXX"
-          $CC --version
-          $CXX --version
-
-          echo "CC=$CC" >> $GITHUB_ENV
-          echo "CXX=$CXX" >> $GITHUB_ENV
-
       - name: Install PyPy, PHP, Mono (C#)
+        shell: bash
         run: |
           set -euo pipefail
           apt-get update
@@ -65,24 +57,25 @@ jobs:
             php-cli \
             mono-devel
 
+          ${CC:-clang} --version || true
+          ${CXX:-clang++} --version || true
           pypy3 --version
           php -v
           mcs --version
           mono --version
 
       - name: C/C++ compile check (Clang only)
+        shell: bash
         run: |
           set -euo pipefail
           mkdir -p build_ci
 
-          # C++
           while IFS= read -r -d '' f; do
             out="build_ci/$(echo "$f" | sed 's|^\./||; s|/|__|g; s|\.cpp$||')"
             echo "C++: $f -> $out"
             "$CXX" -std=c++20 -O2 -pipe "$f" -o "$out"
           done < <(find . -type f -name '*.cpp' -print0)
 
-          # C
           while IFS= read -r -d '' f; do
             out="build_ci/$(echo "$f" | sed 's|^\./||; s|/|__|g; s|\.c$||')"
             echo "C: $f -> $out"
@@ -90,6 +83,7 @@ jobs:
           done < <(find . -type f -name '*.c' -print0)
 
       - name: C# compile check (Mono)
+        shell: bash
         run: |
           set -euo pipefail
           mkdir -p build_ci_cs
@@ -101,11 +95,13 @@ jobs:
           done < <(find . -type f -name '*.cs' -print0)
 
       - name: Python syntax check (PyPy compileall)
+        shell: bash
         run: |
           set -euo pipefail
           pypy3 -m compileall -q .
 
       - name: PHP lint (Zend php-cli)
+        shell: bash
         run: |
           set -euo pipefail
           while IFS= read -r -d '' f; do
