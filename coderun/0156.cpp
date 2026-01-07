@@ -1,3 +1,6 @@
+// https://coderun.yandex.ru/problem/typos
+// string rewriting + shortest path (BFS) + meet-in-the-middle (depth 2+2) + hashing
+
 #include <bits/stdc++.h>
 using namespace std;
 
