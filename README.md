@@ -54,3 +54,22 @@ As you might have guessed, most of the problems in this repository come from two
 - [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky and non-standard problems - sometimes with unusual constraints, odd formulations, or obscurity in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by Sergey N. Belyaev (listed as the author/admin in ACMP materials) and is associated with the Krasnoyarsk Krai Palace of Pioneers and Schoolchildren.
 
 - [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by Yandex LLC (ООО «Яндекс»).
+
+
+## Languages
+
+- **C/C++** - my primary languages. I use them at work, I enjoy them, and most competitive programming tasks are a natural fit for this toolset.
+- **C#** - here mostly out of curiosity. I occasionally poke the .NET ecosystem/infrastructure just because I`m interested.
+- **PHP** - work-driven: I deal with the PHP ecosystem from the *runtime/engine and extensions* side (C mostly). We run static analysis on the engine/addon code, triage findings, and do fuzzing. Sometimes I write some PHP to better understand how it behaves in practice.
+- **Python** - the baseline language. It’s the quickest way to prototype, validate ideas, or write tiny utilities. I use it when I don`t wanna be bothered.
+
+
+## Code style
+
+This repository is mostly **competitive-programming style** code: consistent, fast to write/read under time pressure, and focused on the algorithm rather than ceremony.
+
+What you’ll see a lot (generally in **C/C++** files):
+- A small personal template: `#include <bits/stdc++.h>`, fast I/O, and a few tiny helpers/aliases.
+- **Short, consistent naming**: `n, m, k`, `ans`, `g`, `dp`, `dist`, etc. The goal is to reduce visual noise. I don`t like long words and expressions. 
+- **Shorthands/macros** like `rep`, `sz`, `all`, `pb`, `fi/se`, `rsr(...)` to compress boilerplate (looping, container ops, pair access). This is intentional and comes from a low-level mindset: make common patterns dense and recognizable.
+- A deliberate trade-off: this style is great for contests and personal notes, but **I do not claim macros are best practice for production**.
