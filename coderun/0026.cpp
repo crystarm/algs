@@ -11,7 +11,6 @@ typedef vector<int> vi;
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i < (b); ++i)
 #define rsr(v,n) (v).reserve(n)
-#define pb push_back
 #define fi first
 #define se second
 
