@@ -1,7 +1,6 @@
 [![build](https://github.com/crystarm/algs/actions/workflows/build.yml/badge.svg)](https://github.com/crystarm/algs/actions/workflows/build.yml)
 ![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
 ![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
-[![lines of code](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fcrystarm%2Falgs%2Flines)](https://tokei.kojix2.net/github/crystarm/algs)
 
 ## Note on usage
 
