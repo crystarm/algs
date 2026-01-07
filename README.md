@@ -70,6 +70,6 @@ This repository is mostly **competitive-programming style** code: consistent, fa
 
 What you’ll see a lot (generally in **C/C++** files):
 - A small personal template: `#include <bits/stdc++.h>`, fast I/O, and a few tiny helpers/aliases.
-- **Short, consistent naming**: `n, m, k`, `ans`, `g`, `dp`, `dist`, etc. The goal is to reduce visual noise. I don`t like long words and expressions. 
-- **Shorthands/macros** like `rep`, `sz`, `all`, `pb`, `fi/se`, `rsr(...)` to compress boilerplate (looping, container ops, pair access). This is intentional and comes from a low-level mindset: make common patterns dense and recognizable.
+- **Short, consistent naming**: `n, m, k`, `ans`, `g`, `dp`, `dist`, etc. The goal is to reduce visual noise. I don`t like long words. 
+- **Shorthands/macros** like `rep`, `sz`, `all`, `pb`, `fi/se`, `rsr(...)` to compress boilerplate (looping, container ops, pair access). This is intentional and comes from a low-level mindset: make common patterns dense and recognizable. I don`t like long expressions.
 - A deliberate trade-off: this style is great for contests and personal notes, but **I do not claim macros are best practice for production**.
