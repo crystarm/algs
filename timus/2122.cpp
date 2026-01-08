@@ -12,11 +12,8 @@ using namespace std;
 
 typedef long long ll;
 
-#define all(x) (x).begin(), (x).end()
 #define sz(x) (int)(x).size()
 #define rep(i,a,b) for (int i = (a); i <= (b); ++i)
-#define fi first
-#define se second
 
 const int MOD = 40961;
 const int G = 3;
