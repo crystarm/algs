@@ -73,3 +73,15 @@ What you’ll see a lot (generally in **C/C++** files):
 - **Short, consistent naming**: `n, m, k`, `ans`, `g`, `dp`, `dist`, etc. The goal is to reduce visual noise. I don`t like long words. 
 - **Shorthands/macros** like `rep`, `sz`, `all`, `pb`, `fi/se`, `rsr(...)` to compress boilerplate (looping, container ops, pair access). This is intentional and comes from a low-level mindset: make common patterns dense and recognizable. I don`t like long expressions.
 - A deliberate trade-off: this style is great for contests and personal notes, but **I do not claim macros are best practice for production**.
+
+## Build & CI
+
+I keep a small CI pipeline that’s intentionally close to my setup. The goal is reproducibility and “works on my machine” parity - if it compiles here, it’ll compile on my box too.
+
+- **Environment:** GitHub Actions runs everything inside a `debian:bookworm-slim` container.
+- **C/C++ (Clang only):** every `*.cpp` is compiled as **C++20**, every `*.c` as **C11** (`-O2 -pipe`; C links with `-lm`). Each file is built standalone and outputs go into `build_ci/` — this catches missing headers, accidental dependencies, etc.
+- **C# (Mono):** compiles every `*.cs` with `mcs` (`-optimize+`) into `build_ci_cs/`.
+- **Python:** syntax/bytecode sanity via `pypy3 -m compileall`.
+- **PHP:** lint via `php -l`.
+
+This is a **build/lint sanity check**, not a full correctness test. Maybe one day in the future I will decide to organize full-fledged tests.
