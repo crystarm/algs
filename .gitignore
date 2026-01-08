@@ -7,7 +7,7 @@ TODO
 *.orig
 *.tmp
 
-# Vim
+# vim
 *.swp
 *.swo
 *.swn
@@ -17,10 +17,6 @@ TODO
 *.vim
 .netrwhist
 *~
-
-.vscode/
-.idea/
-*.iml
 
 # artifacts and generic binaries
 *.o
