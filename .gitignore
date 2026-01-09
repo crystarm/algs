@@ -2,9 +2,6 @@ TODO
 
 *~
 *.bak
-*.backup
-*.old
-*.orig
 *.tmp
 
 # vim
@@ -14,9 +11,6 @@ TODO
 *.swm
 *.swl
 *.un~
-*.vim
-.netrwhist
-*~
 
 # artifacts and generic binaries
 *.o
@@ -27,9 +21,7 @@ TODO
 *.so.*
 *.dylib
 *.dll
-*.exe
 *.out
-*.app
 *.elf
 *.pdb
 *.ilk
@@ -37,13 +29,11 @@ TODO
 
 # common build dirs
 build/
-Build/
 bin/
-Bin/
 obj/
-Obj/
 dist/
 out/
+cmake-build/
 cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
@@ -51,32 +41,15 @@ cmake_install.cmake
 compile_commands.json
 *.cmake
 
-# C/C++
-*.d
-*.gcda
-*.gcno
-*.gcov
-*.profraw
-*.profdata
-*.rpo
-*.s
-*.i
-
 # python
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.pylib
-*.egg-info/
-.eggs/
 .venv/
 venv/
-ENV/
-env/
-pip-wheel-metadata/
 .pytest_cache/
-.mypy_cache/
 .ruff_cache/
 
 # C# and .NET
@@ -98,6 +71,7 @@ composer.lock
 *.log
 *.core
 core
+core/
 
 # SQL
 *.sqlite
@@ -107,5 +81,3 @@ core
 *.zip
 *.tar
 *.tar.gz
-*.tgz
-*.7z
