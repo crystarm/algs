@@ -1,5 +1,5 @@
 // https://acm.timus.ru/problem.aspx?space=1&num=1771
-// event simulation + greedy/tie-breaking choice model + adversarial min/max + feasibility/constraints reasoning
+// graphs + event simulation + greedy/tie-breaking choice model + adversarial min/max + feasibility/constraints reasoning
 
 #include <bits/stdc++.h>
 using namespace std;
