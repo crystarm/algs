@@ -146,4 +146,6 @@ int main()
     for (auto &v : res) { for (int id : v) cout << id << ' '; cout << '\n'; }
 
     return 0;
+
+
 }
