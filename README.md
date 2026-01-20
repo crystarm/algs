@@ -4,7 +4,7 @@
 
 ## Note on usage
 
-Important! No license is provided; all rights reserved. That means the code here is protected by default copyright rules: you may read it, study it, and use it as a reference, but **please do not copy or reuse complete solutions directly**! It's a matter of ethics.
+Important! No license is provided; all rights reserved. That means the code here is protected by default copyright rules: you may read it, study it, and use it as a reference, but **please do not copy or reuse complete solutions directly!** It's a matter of ethics.
 It’s published **for learning and reference only**, also as a showcase of my approach, not a bundle of copy-paste ready answers.
 
 I only add solutions that I consider **highly above average or hard in difficulty** or personally interesting, i.e. things that taught me something non-trivial. This is **not** a solution graveyard. : - )
