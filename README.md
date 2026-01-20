@@ -47,13 +47,35 @@ Here are the most, in my opinion, notable solutions:
 - **wc21** - computational geometry + enumeration / backtracking.  
   ([solution](coderun/wc21.c) · [statement](https://coderun.yandex.ru/selections/2025-winter-common/problems/energy-strike))
 
+### Timus
+
+- **2122** - combinatorics + hamming contribution trick + generating functions + NTT under 40961.  
+  ([solution](timus/2122.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2122))
+
+- **2042** - segment tree + lazy range assignment + Manacher on small buffer.  
+  ([solution](timus/2042.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2042))
+
+- **1829** - routing tables + LPM + bitmasks (IPv4 AND mask) + DFS traversal + rule equivalence checking.  
+  ([solution](timus/1829.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1829))
+
+- **1598** - DSA + finite fields + modular arithmetic + fast modular exponentiation + BSGS + crypto break via small parameters.  
+  ([solution](timus/1598.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1598))
+
+- **1399** - Capacitated Vehicle Routing Problem (CVRP/VRP) + TSP on subsets (Held–Karp bitmask DP) + greedy heuristics.  
+  ([solution](timus/1399.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1399))
+
+- **2196** - computational geometry + point-in-convex-polygon (O(log N)) + point-to-segment distance + Minkowski sum / offset (Steiner formula).  
+  ([solution](timus/2196.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2196))
+
 ## Problem sources
 
 As you might have guessed, most of the problems in this repository come from two major Russian competitive programming training platforms:
 
-- [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky and non-standard problems - sometimes with unusual constraints, odd formulations, or obscurity in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by Sergey N. Belyaev (listed as the author/admin in ACMP materials) and is associated with the Krasnoyarsk Krai Palace of Pioneers and Schoolchildren.
+- [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky and non-standard problems - sometimes with unusual constraints, odd formulations, or obscurity in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by **Sergey N. Belyaev** (listed as the author/admin in ACMP materials) and is associated with the **Krasnoyarsk Krai Palace of Pioneers and Schoolchildren**.
 
-- [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by Yandex LLC (ООО «Яндекс»).
+- [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by **Yandex LLC (ООО «Яндекс»)**.
+
+- [**Timus Online Judge**](https://acm.timus.ru/) - a classic ICPC-flavored problem archive and online judge. It hosts Internet versions of many contests held at **Ural Federal University (UrFU)** and includes problems from regional ICPC/NEERC-style contests (and related training events). The site is created and administered by students and graduates of UrFU.
 
 
 ## Languages
