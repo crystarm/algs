@@ -49,6 +49,9 @@ Here are the most, in my opinion, notable solutions:
 
 ### Timus
 
+- **1399** - Capacitated Vehicle Routing Problem (CVRP/VRP) + TSP on subsets (Held–Karp bitmask DP) + greedy heuristics.  
+  ([solution](timus/1399.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1399))
+
 - **2122** - combinatorics + hamming contribution trick + generating functions + NTT under 40961.  
   ([solution](timus/2122.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2122))
 
@@ -60,9 +63,6 @@ Here are the most, in my opinion, notable solutions:
 
 - **1598** - DSA + finite fields + modular arithmetic + fast modular exponentiation + BSGS + crypto break via small parameters.  
   ([solution](timus/1598.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1598))
-
-- **1399** - Capacitated Vehicle Routing Problem (CVRP/VRP) + TSP on subsets (Held–Karp bitmask DP) + greedy heuristics.  
-  ([solution](timus/1399.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=1399))
 
 - **2196** - computational geometry + point-in-convex-polygon (O(log N)) + point-to-segment distance + Minkowski sum / offset (Steiner formula).  
   ([solution](timus/2196.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2196))
