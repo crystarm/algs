@@ -19,7 +19,7 @@ typedef vector<long double> vld;
 static const ld EPS = 1e-12L;
 static const ld INF = 1e100L;
 
-struct pt { ld x, y; }; typedef vector<pt> vld;
+struct pt { ld x, y; }; typedef vector<pt> vpt;
 
 
 static inline pt operator + (const pt &a, const pt &b)          { return {a.x + b.x, a.y + b.y}; }
