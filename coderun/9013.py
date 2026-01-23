@@ -1,4 +1,4 @@
-# https://coderun.yandex.ru/selections/2025-winter-common/problems/snowflakes
+# https://coderun.yandex.ru/problem/snowflakes
 # number theory + combinatorics
 
 import sys

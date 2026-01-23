@@ -1,4 +1,4 @@
-// https://coderun.yandex.ru/selections/2025-winter-common/problems/equipment
+// https://coderun.yandex.ru/problem/equipment
 // water level problem
 
 #include <bits/stdc++.h>
