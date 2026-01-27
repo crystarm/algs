@@ -114,3 +114,22 @@ vpii solve(int n, vs w)
     slv s;
     return s.run(n, w);
 }
+
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int n;
+    if(!(cin >> n)) return 0;
+
+    vs w(2 * n);
+    rep(i,0,2 * n) cin >> w[i];
+
+    vpii ans = solve(n, w);
+
+    cout << sz(ans) << '\n';
+    for(auto &p : ans) cout << p.fi << ' ' << p.se << '\n';
+
+    return 0;
+}
