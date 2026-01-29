@@ -14,6 +14,9 @@ typedef unordered_set<str> uss;
 #define ppb pop_back
 #define ins insert
 
+#define fi first
+#define se second
+
 vs findPath(const str& from, const str& to,
             const function<vs(const str&)>& fetchFlights)
 {
