@@ -15,7 +15,7 @@ Here are the most, in my opinion, notable solutions:
 
 ### ACMP
 
-- **0435** - reachable-state enumeration + interning (dedup) + Chinese remainder theorem + subset sum + NFA -> DFA (subset construction) + Miller-Rabin primality test.  
+- **0435** - reachable-state enumeration + interning (dedup) + Chinese remainder theorem + subset sum + NFA → DFA (subset construction) + Miller-Rabin primality test.  
   ([solution](acmp/0435.cpp) · [statement](https://acmp.ru/index.asp?main=task&id_task=435))
 
 - **0932** - centroid decomposition + combinatorics (counting/aggregation over a tree with centroid splits).  
