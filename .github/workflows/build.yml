@@ -28,10 +28,11 @@ jobs:
             build-essential \
             wget gnupg lsb-release
 
-      - name: Install LLVM/Clang (optionally pinned)
+      - name: Install LLVM/Clang, PyPy, PHP, Mono (C#)
         shell: bash
         run: |
           set -euo pipefail
+          apt-get update
 
           if [[ -n "${CLANG_VER}" ]]; then
             wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
@@ -47,11 +48,6 @@ jobs:
             echo "CXX=clang++" >> "$GITHUB_ENV"
           fi
 
-      - name: Install PyPy, PHP, Mono (C#)
-        shell: bash
-        run: |
-          set -euo pipefail
-          apt-get update
           apt-get install -y --no-install-recommends \
             pypy3 \
             php-cli \
@@ -64,7 +60,7 @@ jobs:
           mcs --version
           mono --version
 
-      - name: C/C++ compile check (Clang only)
+      - name: C/C++ compile check
         shell: bash
         run: |
           set -euo pipefail
@@ -82,7 +78,7 @@ jobs:
             "$CC" -std=c11 -O2 -pipe "$f" -o "$out" -lm
           done < <(find . -type f -name '*.c' -print0)
 
-      - name: C# compile check (Mono)
+      - name: C# compile check
         shell: bash
         run: |
           set -euo pipefail
@@ -94,7 +90,7 @@ jobs:
             mcs -optimize+ -out:"$out" "$f"
           done < <(find . -type f -name '*.cs' -print0)
 
-      - name: Python syntax check (PyPy compileall)
+      - name: Python syntax check
         shell: bash
         run: |
           set -euo pipefail
