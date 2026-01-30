@@ -78,6 +78,15 @@ As you might have guessed, most of the problems in this repository come from two
 
 - [**Timus Online Judge**](https://acm.timus.ru/) - a classic ICPC-flavored problem archive and online judge. It hosts Internet versions of many contests held at **Ural Federal University (UrFU)** and includes problems from regional ICPC/NEERC-style contests (and related training events). The site is created and administered by students and graduates of UrFU.
 
+## Task index
+
+<details><summary>All tasks</summary>
+
+<!-- TASKS_TABLE_BEGIN -->
+<!-- generated: do not edit by hand -->
+<!-- TASKS_TABLE_END -->
+
+</details>
 
 ## Languages
 
