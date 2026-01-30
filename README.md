@@ -1,6 +1,7 @@
 [![build](https://github.com/crystarm/algs/actions/workflows/build.yml/badge.svg)](https://github.com/crystarm/algs/actions/workflows/build.yml)
 ![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
 ![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
+![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/meta/stats.json&query=$.tasks_total&label=tasks)
 
 ## Note on usage
 
