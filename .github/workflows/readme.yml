@@ -20,7 +20,7 @@ jobs:
 
       - name: generate
         run: |
-          python3 .tools/gen_tasks.py
+          python3 .tools/gentasks.py
 
       - name: commit
         run: |
