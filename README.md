@@ -1,7 +1,7 @@
 [![build](https://github.com/crystarm/algs/actions/workflows/build.yml/badge.svg)](https://github.com/crystarm/algs/actions/workflows/build.yml)
 ![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
-![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
 ![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.tasks_total&label=tasks)
+![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
 
 ## Note on usage
 
@@ -67,16 +67,6 @@ Here are the most, in my opinion, notable solutions:
 
 - **2196** - computational geometry + point-in-convex-polygon (O(log N)) + point-to-segment distance + Minkowski sum / offset (Steiner formula).  
   ([solution](timus/2196.cpp) · [statement](https://acm.timus.ru/problem.aspx?space=1&num=2196))
-
-## Problem sources
-
-As you might have guessed, most of the problems in this repository come from two major Russian competitive programming training platforms:
-
-- [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky and non-standard problems - sometimes with unusual constraints, odd formulations, or obscurity in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by **Sergey N. Belyaev** (listed as the author/admin in ACMP materials) and is associated with the **Krasnoyarsk Krai Palace of Pioneers and Schoolchildren**.
-
-- [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by **Yandex LLC (ООО «Яндекс»)**.
-
-- [**Timus Online Judge**](https://acm.timus.ru/) - a classic ICPC-flavored problem archive and online judge. It hosts Internet versions of many contests held at **Ural Federal University (UrFU)** and includes problems from regional ICPC/NEERC-style contests (and related training events). The site is created and administered by students and graduates of UrFU.
 
 ## Task index
 
@@ -152,13 +142,22 @@ As you might have guessed, most of the problems in this repository come from two
 
 </details>
 
+## Problem sources
+
+As you might have guessed, most of the problems in this repository come from two major Russian competitive programming training platforms:
+
+- [**ACMP**](https://acmp.ru/) - it’s a long-running site with a huge archive of problems. Alongside solid classic tasks, there are plenty of quirky and non-standard problems - sometimes with unusual constraints, odd formulations, or obscurity in the sense of being more about decoding the statement and handling edge cases than applying a clean textbook algorithm. The site is maintained by **Sergey N. Belyaev** (listed as the author/admin in ACMP materials) and is associated with the **Krasnoyarsk Krai Palace of Pioneers and Schoolchildren**.
+
+- [**Yandex CodeRun**](https://coderun.yandex.ru/) - it’s Yandex’s developer training platform: an online problem catalog and curated selections to practice programming across multiple tracks (e.g., backend, frontend, mobile, ML/analytics). It also has community features and periodic challenges/events. The platform is operated by **Yandex LLC (ООО «Яндекс»)**.
+
+- [**Timus Online Judge**](https://acm.timus.ru/) - a classic ICPC-flavored problem archive and online judge. It hosts Internet versions of many contests held at **Ural Federal University (UrFU)** and includes problems from regional ICPC/NEERC-style contests (and related training events). The site is created and administered by students and graduates of UrFU.
+
 ## Languages
 
 - **C/C++** - my primary languages. I use them at work, I enjoy them, and most competitive programming tasks are a natural fit for this toolset.
 - **C#** - here mostly out of curiosity. I occasionally poke the .NET ecosystem/infrastructure just because I`m interested.
 - **PHP** - work-driven: I deal with the PHP ecosystem from the *runtime/engine and extensions* side (C mostly). We run static analysis on the engine/addon code, triage findings, and do fuzzing. Sometimes I write some PHP to better understand how it behaves in practice.
 - **Python** - the baseline language. It’s the quickest way to prototype, validate ideas, or write tiny utilities. I use it when I don`t wanna be bothered.
-
 
 ## Code style
 
