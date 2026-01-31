@@ -5,9 +5,8 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 BEGIN = "<!-- TASKS_TABLE_BEGIN -->"
 END = "<!-- TASKS_TABLE_END -->"
@@ -74,18 +73,6 @@ def write_text(p: Path, s: str) -> None:
     p.write_text(s, encoding="utf-8")
 
 
-def dump_yaml(stats: dict) -> str:
-    tasks_total = int(stats["tasks_total"])
-    by_source = stats.get("by_source", {})
-    lines = []
-    lines.append(f"tasks_total: {tasks_total}")
-    lines.append("by_source:")
-    for k in sorted(by_source.keys()):
-        lines.append(f"  {k}: {int(by_source[k])}")
-    lines.append("")
-    return "\n".join(lines)
-
-
 def gen_table(rows: list[row]) -> str:
     out = []
     out.append("| Source | ID | Lang | Solution | Statement |")
@@ -128,11 +115,8 @@ def main() -> int:
     for r in rows:
         stats["by_source"][r.src] = stats["by_source"].get(r.src, 0) + 1
 
-    write_text(
-        ROOT / "meta" / "stats.json",
-        json.dumps(stats, ensure_ascii=False, indent=2) + "\n",
-    )
-    write_text(ROOT / "meta" / "stats.yaml", dump_yaml(stats))
+    stats_path = ROOT / ".github" / "meta" / "stats.lson"
+    write_text(stats_path, json.dumps(stats, ensure_ascii=False, indent=2) + "\n")
 
     readme_path = ROOT / "README.md"
     text = read_text(readme_path)

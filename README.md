@@ -1,7 +1,7 @@
 [![build](https://github.com/crystarm/algs/actions/workflows/build.yml/badge.svg)](https://github.com/crystarm/algs/actions/workflows/build.yml)
 ![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
 ![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
-![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/meta/stats.json&query=$.tasks_total&label=tasks)
+![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.tasks_total&label=tasks)
 
 ## Note on usage
 
@@ -84,6 +84,70 @@ As you might have guessed, most of the problems in this repository come from two
 
 <!-- TASKS_TABLE_BEGIN -->
 <!-- generated: do not edit by hand -->
+
+| Source | ID | Lang | Solution | Statement |
+|---|---:|---|---|---|
+| ACMP | 0011 | C++ | [acmp/0011.cpp](acmp/0011.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=11) |
+| ACMP | 0337 | C++ | [acmp/0337.cpp](acmp/0337.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=337) |
+| ACMP | 0435 | C++ | [acmp/0435.cpp](acmp/0435.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=435) |
+| ACMP | 0652 | C++ | [acmp/0652.cpp](acmp/0652.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=652) |
+| ACMP | 0662 | C++ | [acmp/0662.cpp](acmp/0662.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=662) |
+| ACMP | 0861 | C++ | [acmp/0861.cpp](acmp/0861.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=861) |
+| ACMP | 0866 | C++ | [acmp/0866.cpp](acmp/0866.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=866) |
+| ACMP | 0880 | C++ | [acmp/0880.cpp](acmp/0880.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=880) |
+| ACMP | 0884 | C++ | [acmp/0884.cpp](acmp/0884.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=884) |
+| ACMP | 0914 | C++ | [acmp/0914.cpp](acmp/0914.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=914) |
+| ACMP | 0932 | C++ | [acmp/0932.cpp](acmp/0932.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=932) |
+| ACMP | 0937 | C++ | [acmp/0937.cpp](acmp/0937.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=937) |
+| ACMP | 0959 | C++ | [acmp/0959.cpp](acmp/0959.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=959) |
+| ACMP | 0981 | C++ | [acmp/0981.cpp](acmp/0981.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=981) |
+| ACMP | 1000 | C | [acmp/1000.c](acmp/1000.c) | [link](https://acmp.ru/index.asp?main=task&id_task=1000) |
+| ACMP | 1394 | C | [acmp/1394.c](acmp/1394.c) | [link](https://acmp.ru/index.asp?main=task&id_task=1394) |
+| ACMP | 1690 | C++ | [acmp/1690.cpp](acmp/1690.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=1690) |
+| CodeRun | 0005 | C | [coderun/0005.c](coderun/0005.c) | [link](https://coderun.yandex.ru/catalog?search=5) |
+| CodeRun | 0026 | C++ | [coderun/0026.cpp](coderun/0026.cpp) | [link](https://coderun.yandex.ru/catalog?search=26) |
+| CodeRun | 0042 | C++ | [coderun/0042.cpp](coderun/0042.cpp) | [link](https://coderun.yandex.ru/catalog?search=42) |
+| CodeRun | 0046 | C# | [coderun/0046.cs](coderun/0046.cs) | [link](https://coderun.yandex.ru/catalog?search=46) |
+| CodeRun | 0047 | C++ | [coderun/0047.cpp](coderun/0047.cpp) | [link](https://coderun.yandex.ru/catalog?search=47) |
+| CodeRun | 0049 | PHP | [coderun/0049.php](coderun/0049.php) | [link](https://coderun.yandex.ru/catalog?search=49) |
+| CodeRun | 0078 | C | [coderun/0078.c](coderun/0078.c) | [link](https://coderun.yandex.ru/catalog?search=78) |
+| CodeRun | 0113 | C++ | [coderun/0113.cpp](coderun/0113.cpp) | [link](https://coderun.yandex.ru/catalog?search=113) |
+| CodeRun | 0115 | C++ | [coderun/0115.cpp](coderun/0115.cpp) | [link](https://coderun.yandex.ru/catalog?search=115) |
+| CodeRun | 0117 | C++ | [coderun/0117.cpp](coderun/0117.cpp) | [link](https://coderun.yandex.ru/catalog?search=117) |
+| CodeRun | 0153 | Python | [coderun/0153.py](coderun/0153.py) | [link](https://coderun.yandex.ru/catalog?search=153) |
+| CodeRun | 0156 | C++ | [coderun/0156.cpp](coderun/0156.cpp) | [link](https://coderun.yandex.ru/catalog?search=156) |
+| CodeRun | 0157 | C++ | [coderun/0157.cpp](coderun/0157.cpp) | [link](https://coderun.yandex.ru/catalog?search=157) |
+| CodeRun | 0219 | C++ | [coderun/0219.cpp](coderun/0219.cpp) | [link](https://coderun.yandex.ru/catalog?search=219) |
+| CodeRun | 0222 | C++ | [coderun/0222.cpp](coderun/0222.cpp) | [link](https://coderun.yandex.ru/catalog?search=222) |
+| CodeRun | 0243 | C++ | [coderun/0243.cpp](coderun/0243.cpp) | [link](https://coderun.yandex.ru/catalog?search=243) |
+| CodeRun | 0270 | C++ | [coderun/0270.cpp](coderun/0270.cpp) | [link](https://coderun.yandex.ru/catalog?search=270) |
+| CodeRun | 0347 | SQL | [coderun/0347.sql](coderun/0347.sql) | [link](https://coderun.yandex.ru/catalog?search=347) |
+| CodeRun | 0404 | PHP | [coderun/0404.php](coderun/0404.php) | [link](https://coderun.yandex.ru/catalog?search=404) |
+| CodeRun | 0417 | PHP | [coderun/0417.php](coderun/0417.php) | [link](https://coderun.yandex.ru/catalog?search=417) |
+| CodeRun | 0547 | C++ | [coderun/0547.cpp](coderun/0547.cpp) | [link](https://coderun.yandex.ru/catalog?search=547) |
+| CodeRun | 0567 | C | [coderun/0567.c](coderun/0567.c) | [link](https://coderun.yandex.ru/catalog?search=567) |
+| CodeRun | 7271 | C++ | [coderun/7271.cpp](coderun/7271.cpp) | [link](https://coderun.yandex.ru/catalog?search=7271) |
+| CodeRun | 7507 | C++ | [coderun/7507.cpp](coderun/7507.cpp) | [link](https://coderun.yandex.ru/catalog?search=7507) |
+| CodeRun | 9012 | C++ | [coderun/9012.cpp](coderun/9012.cpp) | [link](https://coderun.yandex.ru/catalog?search=9012) |
+| CodeRun | 9013 | Python | [coderun/9013.py](coderun/9013.py) | [link](https://coderun.yandex.ru/catalog?search=9013) |
+| CodeRun | 9098 | C | [coderun/9098.c](coderun/9098.c) | [link](https://coderun.yandex.ru/catalog?search=9098) |
+| CodeRun | 9325 | C++ | [coderun/9325.cpp](coderun/9325.cpp) | [link](https://coderun.yandex.ru/catalog?search=9325) |
+| Timus | 1271 | C++ | [timus/1271.cpp](timus/1271.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1271) |
+| Timus | 1399 | C++ | [timus/1399.cpp](timus/1399.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1399) |
+| Timus | 1598 | C++ | [timus/1598.cpp](timus/1598.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1598) |
+| Timus | 1618 | C++ | [timus/1618.cpp](timus/1618.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1618) |
+| Timus | 1624 | C++ | [timus/1624.cpp](timus/1624.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1624) |
+| Timus | 1704 | C++ | [timus/1704.cpp](timus/1704.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1704) |
+| Timus | 1771 | C++ | [timus/1771.cpp](timus/1771.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1771) |
+| Timus | 1815 | C++ | [timus/1815.cpp](timus/1815.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1815) |
+| Timus | 1829 | C++ | [timus/1829.cpp](timus/1829.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1829) |
+| Timus | 2042 | C++ | [timus/2042.cpp](timus/2042.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2042) |
+| Timus | 2096 | C++ | [timus/2096.cpp](timus/2096.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2096) |
+| Timus | 2097 | C++ | [timus/2097.cpp](timus/2097.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2097) |
+| Timus | 2122 | C++ | [timus/2122.cpp](timus/2122.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2122) |
+| Timus | 2188 | C++ | [timus/2188.cpp](timus/2188.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2188) |
+| Timus | 2196 | C++ | [timus/2196.cpp](timus/2196.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2196) |
+
 <!-- TASKS_TABLE_END -->
 
 </details>
