@@ -2,6 +2,8 @@
 ![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
 ![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.tasks_total&label=tasks)
 ![repo size](https://img.shields.io/github/repo-size/crystarm/algs)
+[![timus rank](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.timus.rank_by_rating_text&label=timus%20rank)](https://acm.timus.ru/author.aspx?id=404938)
+
 
 ## Note on usage
 
