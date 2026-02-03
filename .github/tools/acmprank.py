@@ -12,12 +12,12 @@ from urllib.request import Request, urlopen
 root = Path(__file__).resolve().parents[2]
 stats_path = root / ".github" / "meta" / "stats.lson"
 
-author_id = 404938
-profile_url = f"https://acm.timus.ru/author.aspx?id={author_id}"
+author_id = 541249
+profile_url = f"https://acmp.ru/index.asp?main=user&id={author_id}"
 
 fetch_urls = [
-    f"https://acm.timus.ru/author.aspx?id={author_id}&locale=en",
-    f"https://timus.online/author.aspx?id={author_id}&locale=en",
+    f"https://acmp.ru/index.asp?main=user&id={author_id}",
+    f"https://acmp.ru/index.asp?id={author_id}&main=user",
 ]
 
 ua = "crystarm-algs-readme-bot/1.0 (+https://github.com/crystarm/algs)"
@@ -29,7 +29,7 @@ def fetch_html(url: str) -> str:
         headers={
             "User-Agent": ua,
             "Accept": "text/html,*/*;q=0.9",
-            "Accept-Language": "en,ru",
+            "Accept-Language": "ru,en",
         },
     )
     with urlopen(req, timeout=25) as r:
@@ -51,11 +51,11 @@ def fetch_html(url: str) -> str:
             pass
 
     s_utf8 = b.decode("utf-8", errors="replace")
-    if ("Rank by rating" in s_utf8) or ("Место" in s_utf8):
+    if ("Место" in s_utf8) or ("Place" in s_utf8) or ("Rank" in s_utf8):
         return s_utf8
 
     s_1251 = b.decode("cp1251", errors="replace")
-    if ("Rank by rating" in s_1251) or ("Место" in s_1251):
+    if ("Место" in s_1251) or ("Place" in s_1251) or ("Rank" in s_1251):
         return s_1251
 
     return s_utf8
@@ -72,7 +72,7 @@ def html_to_text(s: str) -> str:
 
 def parse_rank_by_rating(text: str) -> tuple[int, int] | None:
     m = re.search(
-        r"Rank by rating\s*[:,-]?\s*(\d+)\s+out of\s+(\d+)",
+        r"(?:Место|Place|Rank)\s*[:,-]?\s*(\d+)\s*/\s*(\d+)",
         text,
         flags=re.I,
     )
@@ -80,7 +80,7 @@ def parse_rank_by_rating(text: str) -> tuple[int, int] | None:
         return int(m.group(1)), int(m.group(2))
 
     m = re.search(
-        r"Место\s+по\s+рейтингу\s*[:,-]?\s*(\d+)\s*(?:из|/)\s*(\d+)",
+        r"(?:Место|Place|Rank)\s*[:,-]?\s*(\d+)\s+(?:из|out\s+of)\s+(\d+)",
         text,
         flags=re.I,
     )
@@ -120,33 +120,33 @@ def main() -> int:
             continue
 
     if not parsed:
-        print(f"timusrank: failed to fetch/parse; last_err={last_err}", file=sys.stderr)
+        print(f"acmprank: failed to fetch/parse; last_err={last_err}", file=sys.stderr)
         return 1
 
     rank, total = parsed
     if total <= 0 or rank <= 0:
         print(
-            f"timusrank: invalid numbers rank_by_rating={rank}/{total}", file=sys.stderr
+            f"acmprank: invalid numbers rank_by_rating={rank}/{total}", file=sys.stderr
         )
         return 1
 
     pct = rank * 100.0 / total
     rank_text = f"{rank} of {total} (top {pct:.1f}%)"
-    print(f"timusrank: parsed rank_by_rating_text={rank_text}")
+    print(f"acmprank: parsed rank_by_rating_text={rank_text}")
 
     stats = load_json(stats_path)
-    timus = stats.get("timus")
-    if not isinstance(timus, dict):
-        timus = {}
+    acmp = stats.get("acmp")
+    if not isinstance(acmp, dict):
+        acmp = {}
 
-    timus["author_id"] = author_id
-    timus["profile_url"] = profile_url
-    timus["rank_by_rating"] = rank
-    timus["rank_by_rating_total"] = total
-    timus["rank_by_rating_pct"] = round(pct, 1)
-    timus["rank_by_rating_text"] = rank_text
+    acmp["author_id"] = author_id
+    acmp["profile_url"] = profile_url
+    acmp["rank_by_rating"] = rank
+    acmp["rank_by_rating_total"] = total
+    acmp["rank_by_rating_pct"] = round(pct, 1)
+    acmp["rank_by_rating_text"] = rank_text
 
-    stats["timus"] = timus
+    stats["acmp"] = acmp
     write_json(stats_path, stats)
     return 0
 

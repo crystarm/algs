@@ -39,6 +39,17 @@ jobs:
           print("timus.rank_by_rating_text =", s.get("timus", {}).get("rank_by_rating_text"))
           PY
 
+      - name: Update ACMP rank
+        run: |
+          python3 .github/tools/acmprank.py
+          python3 - <<'PY'
+          import json
+          p = ".github/meta/stats.lson"
+          with open(p, "r", encoding="utf-8") as f:
+              s = json.load(f)
+          print("acmp.place_text =", s.get("acmp", {}).get("place_text"))
+          PY
+
       - name: Commit
         run: |
           if git diff --quiet; then exit 0; fi
