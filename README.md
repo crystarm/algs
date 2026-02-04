@@ -92,6 +92,7 @@ Here are the most, in my opinion, notable solutions:
 | ACMP | 0932 | C++ | [acmp/0932.cpp](acmp/0932.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=932) |
 | ACMP | 0937 | C++ | [acmp/0937.cpp](acmp/0937.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=937) |
 | ACMP | 0959 | C++ | [acmp/0959.cpp](acmp/0959.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=959) |
+| ACMP | 0973 | C++ | [acmp/0973.cpp](acmp/0973.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=973) |
 | ACMP | 0981 | C++ | [acmp/0981.cpp](acmp/0981.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=981) |
 | ACMP | 1000 | C | [acmp/1000.c](acmp/1000.c) | [link](https://acmp.ru/index.asp?main=task&id_task=1000) |
 | ACMP | 1394 | C | [acmp/1394.c](acmp/1394.c) | [link](https://acmp.ru/index.asp?main=task&id_task=1394) |
@@ -124,6 +125,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 9013 | Python | [coderun/9013.py](coderun/9013.py) | [link](https://coderun.yandex.ru/catalog?search=9013) |
 | CodeRun | 9098 | C | [coderun/9098.c](coderun/9098.c) | [link](https://coderun.yandex.ru/catalog?search=9098) |
 | CodeRun | 9325 | C++ | [coderun/9325.cpp](coderun/9325.cpp) | [link](https://coderun.yandex.ru/catalog?search=9325) |
+| Timus | 1092 | C | [timus/1092.c](timus/1092.c) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1092) |
 | Timus | 1271 | C++ | [timus/1271.cpp](timus/1271.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1271) |
 | Timus | 1399 | C++ | [timus/1399.cpp](timus/1399.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1399) |
 | Timus | 1598 | C++ | [timus/1598.cpp](timus/1598.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1598) |
