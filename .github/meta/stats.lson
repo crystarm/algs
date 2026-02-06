@@ -1,24 +1,24 @@
 {
-  "tasks_total": 62,
+  "tasks_total": 63,
   "by_source": {
     "ACMP": 18,
     "CodeRun": 28,
-    "Timus": 16
+    "Timus": 17
   },
   "timus": {
     "author_id": 404938,
     "profile_url": "https://acm.timus.ru/author.aspx?id=404938",
-    "rank_by_rating": 1267,
-    "rank_by_rating_total": 168387,
-    "rank_by_rating_pct": 0.8,
-    "rank_by_rating_text": "1267 of 168387 (top 0.8%)"
+    "rank_by_rating": 1144,
+    "rank_by_rating_total": 168397,
+    "rank_by_rating_pct": 0.7,
+    "rank_by_rating_text": "1144 of 168397 (top 0.7%)"
   },
   "acmp": {
     "author_id": 541249,
     "profile_url": "https://acmp.ru/index.asp?main=user&id=541249",
-    "rank_by_rating": 9973,
-    "rank_by_rating_total": 299125,
+    "rank_by_rating": 9873,
+    "rank_by_rating_total": 299153,
     "rank_by_rating_pct": 3.3,
-    "rank_by_rating_text": "9973 of 299125 (top 3.3%)"
+    "rank_by_rating_text": "9873 of 299153 (top 3.3%)"
   }
 }

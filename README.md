@@ -136,6 +136,7 @@ Here are the most, in my opinion, notable solutions:
 | Timus | 1815 | C++ | [timus/1815.cpp](timus/1815.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1815) |
 | Timus | 1829 | C++ | [timus/1829.cpp](timus/1829.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1829) |
 | Timus | 2042 | C++ | [timus/2042.cpp](timus/2042.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2042) |
+| Timus | 2086 | C++ | [timus/2086.cpp](timus/2086.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2086) |
 | Timus | 2096 | C++ | [timus/2096.cpp](timus/2096.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2096) |
 | Timus | 2097 | C++ | [timus/2097.cpp](timus/2097.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2097) |
 | Timus | 2122 | C++ | [timus/2122.cpp](timus/2122.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2122) |
