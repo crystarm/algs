@@ -128,6 +128,7 @@ Here are the most, in my opinion, notable solutions:
 | Timus | 1092 | C | [timus/1092.c](timus/1092.c) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1092) |
 | Timus | 1271 | C++ | [timus/1271.cpp](timus/1271.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1271) |
 | Timus | 1399 | C++ | [timus/1399.cpp](timus/1399.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1399) |
+| Timus | 1541 | C++ | [timus/1541.cpp](timus/1541.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1541) |
 | Timus | 1598 | C++ | [timus/1598.cpp](timus/1598.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1598) |
 | Timus | 1618 | C++ | [timus/1618.cpp](timus/1618.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1618) |
 | Timus | 1624 | C++ | [timus/1624.cpp](timus/1624.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1624) |
@@ -135,6 +136,7 @@ Here are the most, in my opinion, notable solutions:
 | Timus | 1771 | C++ | [timus/1771.cpp](timus/1771.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1771) |
 | Timus | 1815 | C++ | [timus/1815.cpp](timus/1815.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1815) |
 | Timus | 1829 | C++ | [timus/1829.cpp](timus/1829.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1829) |
+| Timus | 1839 | C++ | [timus/1839.cpp](timus/1839.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1839) |
 | Timus | 2042 | C++ | [timus/2042.cpp](timus/2042.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2042) |
 | Timus | 2086 | C++ | [timus/2086.cpp](timus/2086.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2086) |
 | Timus | 2096 | C++ | [timus/2096.cpp](timus/2096.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2096) |
