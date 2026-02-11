@@ -80,6 +80,7 @@ Here are the most, in my opinion, notable solutions:
 | Source | ID | Lang | Solution | Statement |
 |---|---:|---|---|---|
 | ACMP | 0011 | C++ | [acmp/0011.cpp](acmp/0011.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=11) |
+| ACMP | 0306 | C++ | [acmp/0306.cpp](acmp/0306.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=306) |
 | ACMP | 0337 | C++ | [acmp/0337.cpp](acmp/0337.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=337) |
 | ACMP | 0435 | C++ | [acmp/0435.cpp](acmp/0435.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=435) |
 | ACMP | 0652 | C++ | [acmp/0652.cpp](acmp/0652.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=652) |
