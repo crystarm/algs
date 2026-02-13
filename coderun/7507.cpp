@@ -1,5 +1,5 @@
 // https://coderun.yandex.ru/problem/venue
-// сomputational geometry + perpendicular bisectors + parity/invariants on integer lattice+ randomized/heuristic pair search (Monte Carlo)
+// сomputational geometry + perpendicular bisectors + parity/invariants on integer lattice + randomized/heuristic pair search (Monte Carlo)
 
 #include <bits/stdc++.h>
 using namespace std;
