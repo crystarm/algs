@@ -122,6 +122,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 0567 | C | [coderun/0567.c](coderun/0567.c) | [link](https://coderun.yandex.ru/catalog?search=567) |
 | CodeRun | 7271 | C++ | [coderun/7271.cpp](coderun/7271.cpp) | [link](https://coderun.yandex.ru/catalog?search=7271) |
 | CodeRun | 7507 | C++ | [coderun/7507.cpp](coderun/7507.cpp) | [link](https://coderun.yandex.ru/catalog?search=7507) |
+| CodeRun | 7513 | C++ | [coderun/7513.cpp](coderun/7513.cpp) | [link](https://coderun.yandex.ru/catalog?search=7513) |
 | CodeRun | 9012 | C++ | [coderun/9012.cpp](coderun/9012.cpp) | [link](https://coderun.yandex.ru/catalog?search=9012) |
 | CodeRun | 9013 | Python | [coderun/9013.py](coderun/9013.py) | [link](https://coderun.yandex.ru/catalog?search=9013) |
 | CodeRun | 9098 | C | [coderun/9098.c](coderun/9098.c) | [link](https://coderun.yandex.ru/catalog?search=9098) |
