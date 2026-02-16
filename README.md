@@ -83,6 +83,7 @@ Here are the most, in my opinion, notable solutions:
 | ACMP | 0306 | C++ | [acmp/0306.cpp](acmp/0306.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=306) |
 | ACMP | 0337 | C++ | [acmp/0337.cpp](acmp/0337.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=337) |
 | ACMP | 0435 | C++ | [acmp/0435.cpp](acmp/0435.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=435) |
+| ACMP | 0576 | C++ | [acmp/0576.cpp](acmp/0576.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=576) |
 | ACMP | 0652 | C++ | [acmp/0652.cpp](acmp/0652.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=652) |
 | ACMP | 0662 | C++ | [acmp/0662.cpp](acmp/0662.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=662) |
 | ACMP | 0861 | C++ | [acmp/0861.cpp](acmp/0861.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=861) |
