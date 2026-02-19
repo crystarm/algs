@@ -112,6 +112,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 0153 | Python | [coderun/0153.py](coderun/0153.py) | [link](https://coderun.yandex.ru/catalog?search=153) |
 | CodeRun | 0156 | C++ | [coderun/0156.cpp](coderun/0156.cpp) | [link](https://coderun.yandex.ru/catalog?search=156) |
 | CodeRun | 0157 | C++ | [coderun/0157.cpp](coderun/0157.cpp) | [link](https://coderun.yandex.ru/catalog?search=157) |
+| CodeRun | 0162 | C++ | [coderun/0162.cpp](coderun/0162.cpp) | [link](https://coderun.yandex.ru/catalog?search=162) |
 | CodeRun | 0219 | C++ | [coderun/0219.cpp](coderun/0219.cpp) | [link](https://coderun.yandex.ru/catalog?search=219) |
 | CodeRun | 0222 | C++ | [coderun/0222.cpp](coderun/0222.cpp) | [link](https://coderun.yandex.ru/catalog?search=222) |
 | CodeRun | 0243 | C++ | [coderun/0243.cpp](coderun/0243.cpp) | [link](https://coderun.yandex.ru/catalog?search=243) |
@@ -130,6 +131,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 9325 | C++ | [coderun/9325.cpp](coderun/9325.cpp) | [link](https://coderun.yandex.ru/catalog?search=9325) |
 | Timus | 1092 | C | [timus/1092.c](timus/1092.c) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1092) |
 | Timus | 1271 | C++ | [timus/1271.cpp](timus/1271.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1271) |
+| Timus | 1337 | C++ | [timus/1337.cpp](timus/1337.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1337) |
 | Timus | 1399 | C++ | [timus/1399.cpp](timus/1399.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1399) |
 | Timus | 1541 | C++ | [timus/1541.cpp](timus/1541.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1541) |
 | Timus | 1598 | C++ | [timus/1598.cpp](timus/1598.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1598) |
