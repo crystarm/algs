@@ -80,6 +80,7 @@ Here are the most, in my opinion, notable solutions:
 | Source | ID | Lang | Solution | Statement |
 |---|---:|---|---|---|
 | ACMP | 0011 | C++ | [acmp/0011.cpp](acmp/0011.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=11) |
+| ACMP | 0223 | C | [acmp/0223.c](acmp/0223.c) | [link](https://acmp.ru/index.asp?main=task&id_task=223) |
 | ACMP | 0306 | C++ | [acmp/0306.cpp](acmp/0306.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=306) |
 | ACMP | 0337 | C++ | [acmp/0337.cpp](acmp/0337.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=337) |
 | ACMP | 0435 | C++ | [acmp/0435.cpp](acmp/0435.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=435) |
@@ -116,6 +117,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 0219 | C++ | [coderun/0219.cpp](coderun/0219.cpp) | [link](https://coderun.yandex.ru/catalog?search=219) |
 | CodeRun | 0222 | C++ | [coderun/0222.cpp](coderun/0222.cpp) | [link](https://coderun.yandex.ru/catalog?search=222) |
 | CodeRun | 0243 | C++ | [coderun/0243.cpp](coderun/0243.cpp) | [link](https://coderun.yandex.ru/catalog?search=243) |
+| CodeRun | 0266 | C++ | [coderun/0266.cpp](coderun/0266.cpp) | [link](https://coderun.yandex.ru/catalog?search=266) |
 | CodeRun | 0270 | C++ | [coderun/0270.cpp](coderun/0270.cpp) | [link](https://coderun.yandex.ru/catalog?search=270) |
 | CodeRun | 0347 | SQL | [coderun/0347.sql](coderun/0347.sql) | [link](https://coderun.yandex.ru/catalog?search=347) |
 | CodeRun | 0404 | PHP | [coderun/0404.php](coderun/0404.php) | [link](https://coderun.yandex.ru/catalog?search=404) |
@@ -129,6 +131,7 @@ Here are the most, in my opinion, notable solutions:
 | CodeRun | 9013 | Python | [coderun/9013.py](coderun/9013.py) | [link](https://coderun.yandex.ru/catalog?search=9013) |
 | CodeRun | 9098 | C | [coderun/9098.c](coderun/9098.c) | [link](https://coderun.yandex.ru/catalog?search=9098) |
 | CodeRun | 9325 | C++ | [coderun/9325.cpp](coderun/9325.cpp) | [link](https://coderun.yandex.ru/catalog?search=9325) |
+| Timus | 1041 | C++ | [timus/1041.cpp](timus/1041.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1041) |
 | Timus | 1092 | C | [timus/1092.c](timus/1092.c) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1092) |
 | Timus | 1271 | C++ | [timus/1271.cpp](timus/1271.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1271) |
 | Timus | 1337 | C++ | [timus/1337.cpp](timus/1337.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=1337) |
