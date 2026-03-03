@@ -1,5 +1,5 @@
 [![build](https://github.com/crystarm/algs/actions/workflows/build.yml/badge.svg)](https://github.com/crystarm/algs/actions/workflows/build.yml)
-![last commit](https://img.shields.io/github/last-commit/crystarm/algs)
+![last commit](https://img.shields.io/github/last-commit/crystarm/algs?author=crystarm)
 ![tasks](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.tasks_total&label=tasks)
 [![timus rank](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.timus.rank_by_rating_text&label=timus%20rank&color=9400d3)](https://acm.timus.ru/author.aspx?id=404938)
 [![acmp rank](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/crystarm/algs/master/.github/meta/stats.lson&query=$.acmp.rank_by_rating_text&label=acmp%20rank&color=9400d3)](https://acmp.ru/index.asp?main=user&id=541249)
