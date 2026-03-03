@@ -87,6 +87,7 @@ Here are the most, in my opinion, notable solutions:
 | ACMP | 0576 | C++ | [acmp/0576.cpp](acmp/0576.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=576) |
 | ACMP | 0652 | C++ | [acmp/0652.cpp](acmp/0652.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=652) |
 | ACMP | 0662 | C++ | [acmp/0662.cpp](acmp/0662.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=662) |
+| ACMP | 0671 | C++ | [acmp/0671.cpp](acmp/0671.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=671) |
 | ACMP | 0861 | C++ | [acmp/0861.cpp](acmp/0861.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=861) |
 | ACMP | 0866 | C++ | [acmp/0866.cpp](acmp/0866.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=866) |
 | ACMP | 0880 | C++ | [acmp/0880.cpp](acmp/0880.cpp) | [link](https://acmp.ru/index.asp?main=task&id_task=880) |
