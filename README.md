@@ -154,6 +154,7 @@ Here are the most, in my opinion, notable solutions:
 | Timus | 2122 | C++ | [timus/2122.cpp](timus/2122.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2122) |
 | Timus | 2188 | C++ | [timus/2188.cpp](timus/2188.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2188) |
 | Timus | 2196 | C++ | [timus/2196.cpp](timus/2196.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2196) |
+| Timus | 2223 | C++ | [timus/2223.cpp](timus/2223.cpp) | [link](https://acm.timus.ru/problem.aspx?space=1&num=2223) |
 
 <!-- TASKS_TABLE_END -->
 
